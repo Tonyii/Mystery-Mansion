@@ -4,3 +4,4 @@
 
 print("foo")
 print("foobar")
+x=input("Oletko sinä mielestäsi kaunis?")
