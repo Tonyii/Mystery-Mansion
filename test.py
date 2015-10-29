@@ -4,4 +4,4 @@
 
 print("foo")
 print("foobar")
-x=input("Oletko sin‰ mielest‰si kaunis?")
+x=input("Oletko sin√§ mielest√§si kaunis?")
