@@ -3,3 +3,4 @@
 # -*- coding: utf-8 -*-
 
 print("foo")
+print("foobar")
