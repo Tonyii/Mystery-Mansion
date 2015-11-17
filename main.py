@@ -56,8 +56,8 @@ frame2.pack(side=BOTTOM)
 #frame4=Frame(GUI)
 #frame4.pack()
 
-plusnappi=Button(frame, text="Begin", command=beginning)
-plusnappi.pack(side=LEFT)
+aloitusnappi=Button(frame, text="Begin", command=beginning)
+aloitusnappi.pack(side=LEFT)
 
 lopetusnappi=Button(frame2, text="Lopeta", command=lopetus)
 lopetusnappi.pack(side=BOTTOM)
