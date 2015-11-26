@@ -3,6 +3,16 @@
 # -*- coding: utf-8 -*-
 from sys import argv
 from tkinter import *
+import mysql.connector
+
+db = mysql.connector.connect(host="localhost",
+                      user= "root",
+                      passwd="",
+                      db="harjoitus",
+                      buffered=True)
+
+def avaa_tietokanta():
+    print("foo")
 
 def move(direction):
     if direction == 'west':
@@ -11,7 +21,10 @@ def move(direction):
 def beginning():
     try:
         filu=open('tarina.txt', 'r')
-        print (filu.read())
+        teksti = filu.read()
+        tekstikentta.insert(END, teksti)
+        print(teksti)
+
     except SystemError:
         virhe = ("could not open file.")
 
@@ -33,19 +46,18 @@ filemenu = Menu(menubar, tearoff=0)
 #filemenu.add_separator()
 filemenu.add_command(label="Exit", command=lopetus)
 menubar.add_cascade(label="File", menu=filemenu)
-GUI.config(menu=menubar)
+GUI.config(menu=menubar)#, background='black')#, fg='green')
 GUI.geometry('720x405')
 
 
 
-GUI.title("Yay")
+GUI.title("Mystery Mansion")
 
 #luodaan framet ja rajat, joihin sijoitetaan tekstikentät
 #ja ohjelman toiminnot
 
-frame=Frame(GUI)
-beginning()
-frame.pack()
+mainframe=Frame(GUI)
+mainframe.pack()
 
 frame2=Frame(GUI)
 frame2.pack(side=BOTTOM)
@@ -56,11 +68,14 @@ frame2.pack(side=BOTTOM)
 #frame4=Frame(GUI)
 #frame4.pack()
 
-aloitusnappi=Button(frame, text="Begin", command=beginning)
+aloitusnappi=Button(mainframe, text="Begin", command=beginning)
 aloitusnappi.pack(side=LEFT)
 
 lopetusnappi=Button(frame2, text="Lopeta", command=lopetus)
 lopetusnappi.pack(side=BOTTOM)
+
+tekstikentta = Text(mainframe)
+
 GUI.mainloop()
 
 act = ''
@@ -73,3 +88,5 @@ while act != 'quit':
         apuva()
     if act == ('go', direction) :
         move(direction)
+
+beginning()
