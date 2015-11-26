@@ -16,5 +16,6 @@ while end_game == 0:
     oma_funktiot.move(db)
     location = oma_funktiot.room_desc(db)
     print(dialog.location(location))
+    print(oma_funktiot.people(db))
 
     end_game=1

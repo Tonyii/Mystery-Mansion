@@ -21,3 +21,10 @@ def room_desc(db):
 def move(db):
     cursor=db.cursor()
     cursor.execute("update player set location = 2")
+
+def people(db):
+    cursor=db.cursor()
+    cursor.execute("select description from npc"
+                   "where npc.location in (select location "
+                   "from player)")
+    return (cursor.fetchone())[0]
