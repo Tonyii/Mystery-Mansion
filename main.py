@@ -12,7 +12,7 @@ db = mysql.connector.connect(host="localhost",
                       buffered=True)
 
 def avaa_tietokanta():
-    print("foo")
+    print("foobar")
 
 def move(direction):
     if direction == 'west':
