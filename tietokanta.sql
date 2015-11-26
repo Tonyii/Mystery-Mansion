@@ -36,6 +36,6 @@ insert into Room values (1, "guestbed"), (2, "groundskeeperslair"), (3, "corrido
             (9, "bathroom"), (10, "masterbedroom"), (11, "study"), (12, "attic");
 
 insert into Player values (1, 1);
-insert into NPC values (1, "groudskeeper", 2, 1), (2, "maid", 4, 1), (3, "chef", 6, 1), (4, "jeeves", 5, 1), (5, "mistress", 10, 1);
+insert into NPC values (1, "groundskeeper", 2, 1), (2, "maid", 4, 1), (3, "chef", 6, 1), (4, "jeeves", 5, 1), (5, "mistress", 10, 1);
 insert into Item values (1, "whiskey", null, 6), (2, "torn page", null, 1), (3, "safe", null, 11), (4, "combination", null, 10), (5, "dark spellbook", null, 11)
 
