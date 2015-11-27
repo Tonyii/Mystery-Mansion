@@ -4,9 +4,12 @@
 
 def location(room):
     if room == 'guestroom':
-        return str("insert guestbedroom description here:")
+        return str('\nYou are in the mansions guest bedroom.\nThe walls are painted light yellow and there is a '
+                   'painting of a man with a firm look on his face. \nThe bed you slept in is not made and '
+                   'theres an empty champagne glass on the night table. You \nget the chills from this room '
+                   'now even though it didnt seem to matter last night.\n')
     if room == 'garage':
-        return str("yarr")
+        return str("Yarr")
     if room == 'corridor':
         return str("insert corridor description here:")
     if room == 'maidroom':
