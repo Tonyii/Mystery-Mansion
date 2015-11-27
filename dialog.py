@@ -17,7 +17,7 @@ def location(room):
     if room == 'office':
         return str("\nYou enter the office.\nNice view from the windows, large wooden desk and executive sized "
                    "leather chair behind it and two not-so-comfortable\nlooking chairs in front of the desk. "
-                   "Would not want to work here you think. On the desk is neatly\norganized: pencil holder, phone,"
+                   "Would not want to work here, you think. The desk is neatly\norganized: pencil holder, phone,"
                    "calendar, phone book. Nothing out of ordinary on your first glance.\n ")
     if room == 'kitchen':
         return str("\nYou walk into the kitchen.\nFirst thing that you notice is that the chef has to be superior "
