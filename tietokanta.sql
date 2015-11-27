@@ -3,6 +3,11 @@ DROP database if exists MM;
 create database MM;
 use MM;
 
+drop table if exists Room;
+drop table if exists Player;
+drop table if exists Item;
+drop table if exists NPC;
+
 create table Room(
 	RoomID int not null,
 	Description varchar(1000),

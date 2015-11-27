@@ -36,16 +36,13 @@ end_game = 0
 #pelin päälooppi
 while end_game == 0:
 
-
-    location = oma_funktiot.room_desc(db)
-    print(dialog.location(location))
-    #oma_funktiot.move(db)
     location = oma_funktiot.room_desc(db)
     print(dialog.location(location))
     #print(oma_funktiot.people(db))
 
     player_input(input("What do you want to do? "))
     location = oma_funktiot.room_desc(db)
+    print(location)
     print(dialog.location(location))
 
     end_game=1
