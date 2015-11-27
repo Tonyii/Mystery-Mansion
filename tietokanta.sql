@@ -31,9 +31,9 @@ create table NPC(
 	primary key (NPCID),
 	foreign key (Location) references Room(RoomID));
 
-insert into Room values (1, "Guestroom"), (2, "Garage"), (3, "Corridor"),
-			(4, "Maidroom"), (5, "Office"), (6, "Kitchen"), (7, "Stairs"), (8, "Ballroom"),
-            (9, "Bathroom"), (10, "Master bedroom"), (11, "Study"), (12, "Attic");
+insert into Room values (1, "guestroom"), (2, "garage"), (3, "corridor"),
+			(4, "maidroom"), (5, "office"), (6, "kitchen"), (7, "stairs"), (8, "ballroom"),
+            (9, "bathroom"), (10, "master bedroom"), (11, "study"), (12, "attic");
 
 insert into Player values (1, 1);
 insert into NPC values (1, "Groundskeeper Willy", 2, 1), (2, "Maid Penelope", 4, 1), (3, "Chef Gordon", 6, 1), (4, "Jeeves the Butler", 5, 1), (5, "Lady Sonya", 10, 1);
