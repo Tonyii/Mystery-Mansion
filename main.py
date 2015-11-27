@@ -4,8 +4,8 @@ import dialog
 import getpass
 
 hostname = 'localhost'
-uname = 'root'
-pswd = input("Anna SQL salasana:")
+uname = 'player'
+pswd = 'mm'
 db = oma_funktiot.open_database(hostname, uname, pswd)
 
 def player_input(command):
@@ -14,7 +14,7 @@ def player_input(command):
 
         verb = command_list[0]
         noun = command_list[-1]
-        #ignore all capital letters in commands prööt
+        #ignore hurr all capital letters in commands
         verb = verb.lower()
         noun = noun.lower()
 
