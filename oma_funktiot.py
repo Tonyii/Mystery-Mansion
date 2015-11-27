@@ -31,7 +31,10 @@ def move(db, noun):
     roomID = roomID +1
     print(roomID)
     cursor=db.cursor()
-    cursor.execute("update player set location = ", roomID)
+
+    sql = "update player set location = " + str(roomID)
+
+    cursor.execute(sql)
 
 def people(db):
     cursor=db.cursor()
