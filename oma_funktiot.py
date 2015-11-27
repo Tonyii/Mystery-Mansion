@@ -13,7 +13,7 @@ known_commands =['go', 'move', 'exit', 'walk', 'travel', 'climb', 'crawl', 'run'
                  'take', 'lift', 'pick', 'get', 'grab',
                  'talk', 'ask', 'interrogate', 'interview', 'speak', 'tell',
                  'inventory', 'help', 'map']
-known_rooms =['guestroom', 'Garage', 'Corridor', 'Maidroom', 'Office', 'Kitchen', 'Stairs', 'Ballroom',
+known_rooms =['guestroom', 'garage', 'Corridor', 'Maidroom', 'Office', 'Kitchen', 'Stairs', 'Ballroom',
               'Bathroom', 'bedroom', 'Study', 'Attic']
 
 #where you are
@@ -27,9 +27,11 @@ def room_desc(db):
 
 def move(db, noun):
     roomID = known_rooms.index(noun)
+    print(roomID)
     roomID = roomID +1
+    print(roomID)
     cursor=db.cursor()
-    cursor.execute("update player set location = "+ roomID )
+    cursor.execute("update player set location = ", roomID)
 
 def people(db):
     cursor=db.cursor()
