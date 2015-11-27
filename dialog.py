@@ -21,7 +21,7 @@ def location(room):
         return str("insert balroom description here:")
     if room == 'bathroom':
         return str("insert bathroom description here:")
-    if room == 'bedroom':
+    if room == 'master bedroom':
         return str("insert master bedroom description here:")
     if room == 'study':
         return str("insert study description here:")
