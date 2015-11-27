@@ -33,7 +33,7 @@ def player_input(command):
 
 
 end_game = 0
-
+#pelin päälooppi
 while end_game == 0:
 
 
