@@ -12,7 +12,7 @@ known_commands =['go', 'move', 'exit', 'walk', 'travel', 'climb', 'crawl', 'run'
                  'look', 'inspect', 'examine', 'search', 'investigate',
                  'take', 'lift', 'pick', 'get', 'grab',
                  'talk', 'ask', 'interrogate', 'interview', 'speak', 'tell',
-                 'inventory', 'help', 'map']
+                 'inventory', 'help', 'map', 'quit']
 known_rooms =['guestroom', 'garage', 'corridor', 'maidroom', 'office', 'kitchen', 'stairs', 'ballroom',
               'bathroom', 'bedroom', 'study', 'attic']
 

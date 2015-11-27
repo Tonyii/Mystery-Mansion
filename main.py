@@ -40,4 +40,4 @@ while end_game == 0:
     print(dialog.location(location))
     #print(oma_funktiot.people(db))
 
-    player_input(input("What do you want to do? "))
+    player_input(input("What do you want to do?\n >"))
