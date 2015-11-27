@@ -14,7 +14,7 @@ def player_input(command):
 
         verb = command_list[0]
         noun = command_list[-1]
-        #ignore capital letters in commands
+        #ignore all capital letters in commands
         verb = verb.lower()
         noun = noun.lower()
 
