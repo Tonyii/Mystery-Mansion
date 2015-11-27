@@ -33,11 +33,16 @@ def player_input(command):
 
 
 end_game = 0
+
 #pelin päälooppi
 while end_game == 0:
 
     location = oma_funktiot.room_desc(db)
     print(dialog.location(location))
     #print(oma_funktiot.people(db))
+    first_input=input("What do you want to do?\n")
+    if first_input != "quit":
 
-    player_input(input("What do you want to do?\n >"))
+        player_input(first_input)
+    else: end_game = 1
+
