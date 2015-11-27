@@ -4,8 +4,8 @@ import dialog
 import getpass
 
 hostname = 'localhost'
-uname = 'root'
-pswd = 'Cbr600F1'
+uname = 'player'
+pswd = 'mm'
 db = oma_funktiot.open_database(hostname, uname, pswd)
 
 def player_input(command):
@@ -14,7 +14,7 @@ def player_input(command):
 
         verb = command_list[0]
         noun = command_list[-1]
-        #ignore capital letters in commands
+        #ignore all capital letters in commands
         verb = verb.lower()
         noun = noun.lower()
 
@@ -24,7 +24,7 @@ def player_input(command):
 
         elif verb == 'go' or 'move' or 'exit' or 'walk' or 'travel' or 'climb' or 'crawl' or 'run' and noun in oma_funktiot.known_rooms:
             print(verb, noun)
-
+            oma_funktiot.move(db, noun)
 
 
 
@@ -45,4 +45,7 @@ while end_game == 0:
     #print(oma_funktiot.people(db))
 
     player_input(input("What do you want to do? "))
+    location = oma_funktiot.room_desc(db)
+    print(dialog.location(location))
+
     end_game=1
