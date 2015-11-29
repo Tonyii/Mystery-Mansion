@@ -9,9 +9,11 @@ def location(room):
                    "there is an empty champagne glass on the night table. \nYou get the chills from this room "
                    "now even though it did not seem to matter last night.\n")
     if room == 'garage':
-        return str("Yarr")
+        return str("You enter the groundskeepers garage. 
+The door barely opens enough for you to slip in. There's boxes behind the door that havent been touched in ages. Rakes, shovels and picks fill the walls and a moist air mixed with the scent of wood fills your lugns. At the end of the room theres a small lamp that glances yellowy light across the room and a workdesk.")
     if room == 'corridor':
-        return str("insert corridor description here:")
+        return str("You look across a long corridor.
+The patterns on wallpapers run through the corridor. Few seemingly old mablewood sideboards with golden finishing and red silken veils on the walls resemble just how wealthy the residents living here are. There's paintings of noble men lined up on the walls and you feel a quiet breeze coming from the window.")
     if room == 'maidroom':
         return str("insert maids chamber description here:")
     if room == 'office':
@@ -54,4 +56,3 @@ def location(room):
                    "The atmosphere is very musty, and you can see many cobwebs hanging from the beams supporting the roof.\n"
                    "The light is dim, but you can make out heeps of cardboard boxes along the walls.\n"
                    "A little light from a small window on the western end of the room reveals a small table with a chair.\n")
-
