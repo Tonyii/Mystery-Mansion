@@ -21,7 +21,7 @@ def location(room):
                    "The patterns on wallpapers run through the corridor. Few seemingly old mablewood sideboards with \n"
                    "golden finishing and red silken veils on the walls resemble just how wealthy the residents living\n"
                    "here are. There's paintings of noble men lined up on the walls and you feel a quiet breeze coming\n"
-                   "from the window.")
+                   "from the window. ")
     if room == 'maidroom':
         return str("insert maids chamber description here:")
     if room == 'office':
