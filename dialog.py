@@ -9,11 +9,19 @@ def location(room):
                    "there is an empty champagne glass on the night table. \nYou get the chills from this room "
                    "now even though it did not seem to matter last night.\n")
     if room == 'garage':
-        return str("You enter the groundskeepers garage. 
-The door barely opens enough for you to slip in. There's boxes behind the door that havent been touched in ages. Rakes, shovels and picks fill the walls and a moist air mixed with the scent of wood fills your lugns. At the end of the room theres a small lamp that glances yellowy light across the room and a workdesk.")
+        return str("You enter the groundskeepers garage.\n"
+                   "The door barely opens enough for you to slip in. There's boxes behind the door that havent been "
+                   "touched in ages. Rakes, shovels and picks \n"
+                   "fill the walls and a moist air mixed with the scent of wood fills your lugns. At the end of the "
+                   "room theres a small lamp that \n"
+                   "glances yellowy light across the room and a workdesk.")
     if room == 'corridor':
-        return str("You look across a long corridor.
-The patterns on wallpapers run through the corridor. Few seemingly old mablewood sideboards with golden finishing and red silken veils on the walls resemble just how wealthy the residents living here are. There's paintings of noble men lined up on the walls and you feel a quiet breeze coming from the window.")
+        return str("You look across a long corridor.\n"
+                   "The patterns on wallpapers run through the corridor. Few seemingly old mablewood sideboards with \n"
+                   "golden finishing and red silken veils on the\n"
+                   "walls resemble just how wealthy the residents living here are. There's paintings of noble men "
+                   "lined up on the walls and you feel \n"
+                   "a quiet breeze coming from the window.")
     if room == 'maidroom':
         return str("insert maids chamber description here:")
     if room == 'office':
