@@ -27,9 +27,7 @@ def room_desc(db):
 
 def move(db, noun):
     roomID = known_rooms.index(noun)
-    print(roomID)
     roomID = roomID +1
-    print(roomID)
     cursor=db.cursor()
 
     sql = "update player set location = " + str(roomID)

@@ -42,7 +42,6 @@ while end_game == 0:
     #print(oma_funktiot.people(db))
     first_input=input("What do you want to do?\n")
     if first_input != "quit":
-
         player_input(first_input)
     else: end_game = 1
 
