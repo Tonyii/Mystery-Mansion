@@ -72,11 +72,19 @@ def conversation(db, suspect):
                    "I am feeling a bit thirsty, you don't happen to have any liquid of gods?\"\n")
 
             return answer
+        elif suspect == 'chef' or suspect == 'gordon' and trust == 1:
+            answer = str("Chef angily stops what he is doing and turns to you. \"What do you want?\n"
+                         "My job is to cook food and not to answer questions! Go away, I am trying to work!\"\n")
+            return answer
+        elif suspect == 'maid' or suspect == 'penelope' and trust == 1:
+            answer = str("\"What a horrible thing to happen! I think I must find a new job... \nI guess this"
+                         " wasn't a success for me.\" ")
+            return answer
 
     elif trust == 2 :
         if suspect == 'willy' or suspect == 'groundskeeper' and trust ==2:
-            answer = str("\" I saw her, miss Penelope. She did some weird things! *hiccup* I went to war\n "
-                     "and I never saw anything like that.  \"")
+            answer = str("\" I heard her, miss Penelope. In the attic. She did some weird things! *hiccup* I went to war\n "
+                     "and I never heard anything as scary like that.  \"")
             return answer
 
 
