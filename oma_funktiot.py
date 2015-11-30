@@ -22,7 +22,7 @@ known_commands.extend(known_opens)
 known_commands.extend(known_looks)
 known_rooms=['guestroom', 'garage', 'corridor', 'maidroom', 'office', 'kitchen', 'stairs', 'ballroom',
                 'bathroom', 'bedroom', 'study', 'attic']
-known_people =['butler']
+known_people =['butler', 'willy']
 known_objects =['table']
 known_items =['whiskey']
 
@@ -60,8 +60,15 @@ def people(db):
     return return_person
 
 
+def conversation(db, suspect):
+    cursor=db.cursor()
+    cursor.execute("select npc.trust from npc where npc.location in (select location from player)")
+    trust = cursor.fetchone()[0]
+    if suspect == 'willy' and trust == 1:
+        answer = str("There are weird things going on in this mansion. If I hadn't been working here all my life\n"
+                   "and my father before me and his father before him, I would have quit a long time ago. \n"
+                   "I am feeling a bit thirsty, you don't happen to have any liquid of gods?")
 
-
-
+        return answer
 
 

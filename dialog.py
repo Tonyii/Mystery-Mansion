@@ -1,6 +1,9 @@
 #Eetu Kaivola
 
 # -*- coding: utf-8 -*-
+import oma_funktiot
+import mysql.connector
+
 
 def location(room):
     if room == 'guestroom':
@@ -64,11 +67,4 @@ def location(room):
                    "The atmosphere is very musty, and you can see many cobwebs hanging from the beams supporting the roof.\n"
                    "The light is dim, but you can make out heeps of cardboard boxes along the walls.\n"
                    "A little light from a small window on the western end of the room reveals a small table with a chair.\n")
-def conversation(db, suspect):
-    cursor = db.cursor
-    trust = cursor.execute("select trust from npc where npc.location in (select location from player)")
 
-    if suspect == 'willy' and trust == 1:
-        return  str("There are weird things going on in this mansion. If I hadn' been working here all my life\n"
-                   " and my father before me and his father before him, I would have quit a long time ago. \n"
-                   "I am feeling a bit thirsty, you don't happen to have any liquid of gods?")
