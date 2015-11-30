@@ -16,7 +16,8 @@ known_commands =['go', 'move', 'exit', 'walk', 'travel', 'climb', 'crawl', 'run'
 known_rooms =['guestroom', 'garage', 'corridor', 'maidroom', 'office', 'kitchen', 'stairs', 'ballroom',
               'bathroom', 'bedroom', 'study', 'attic']
 known_people = ['butler']
-
+known_objects =['table']
+known_items = ['whiskey']
 #where you are
 
 def room_desc(db):
