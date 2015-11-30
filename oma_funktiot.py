@@ -44,9 +44,11 @@ def people(db):
     #hakee kaikki arvot ja sitten tarkistaa onko ketään huoneessa
     rows = cursor.fetchone()
     if rows is not None:
-        return_person = rows[0]
+        rperson = rows[0]
+        return_person = str("There's " + rperson + " in the same room.")
+
     else:
-        return_person = "There's no one beside you in the room"
+        return_person = "There's no one beside you in the room.\n"
 
     return return_person
 
