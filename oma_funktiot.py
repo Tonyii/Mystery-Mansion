@@ -80,6 +80,15 @@ def conversation(db, suspect):
             answer = str("\"What a horrible thing to happen! I think I must find a new job... \nI guess this"
                          " wasn't a success for me.\" ")
             return answer
+        elif suspect == 'butler' or suspect == 'jeeves' and trust == 1:
+            answer = str("\"Oh how horrible act of violence this is! My dear master and friend is gone!\n"
+                         "Terrible night, I slept like a log after catering your marvelous party. What a "
+                         "shame.\nI hope that police arrives shortly and we can put the monster behind bars!\"\n")
+            return answer
+        elif suspect == 'lady' or suspect == 'sonya' and trust == 1:
+            answer = str("\"Bohoo! My love is gone! Go away you idiot! Can't you see that I am in grief."
+                         "I have nothing to say to you. Leave me alone! \"")
+            return answer
 
     elif trust == 2 :
         if suspect == 'willy' or suspect == 'groundskeeper' and trust ==2:
@@ -105,7 +114,7 @@ def location(room):
                    "room and a workdesk.\n")
     if room == 'corridor':
         return str("You look across a long corridor.\n"
-                   "The patterns on wallpapers run through the corridor. Few seemingly old mablewood sideboards with \n"
+                   "The patterns on wallpapers run through the corridor. Few seemingly old maple wood sideboards with \n"
                    "golden finishing and red silken veils on the walls resemble just how wealthy the residents living\n"
                    "here are. There's paintings of noble men lined up on the walls and you feel a quiet breeze coming\n"
                    "from the window.\n")
