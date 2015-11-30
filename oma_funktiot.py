@@ -74,7 +74,8 @@ def conversation(db, suspect):
             return answer
         elif suspect == 'chef' or suspect == 'gordon' and trust == 1:
             answer = str("Chef angily stops what he is doing and turns to you. \"What do you want?\n"
-                         "My job is to cook food and not to answer questions! Go away, I am trying to work!\"\n")
+                         "My job is to cook food and not to answer questions! Go away, I am trying to work!"
+                         "Go talk to Willy, if there is something to know he knows.\"\n")
             return answer
         elif suspect == 'maid' or suspect == 'penelope' and trust == 1:
             answer = str("\"What a horrible thing to happen! I think I must find a new job... \nI guess this"
