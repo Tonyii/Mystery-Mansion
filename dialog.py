@@ -64,3 +64,6 @@ def location(room):
                    "The atmosphere is very musty, and you can see many cobwebs hanging from the beams supporting the roof.\n"
                    "The light is dim, but you can make out heeps of cardboard boxes along the walls.\n"
                    "A little light from a small window on the western end of the room reveals a small table with a chair.\n")
+def people (people):
+    if people == 'butler':
+        return str("foo")

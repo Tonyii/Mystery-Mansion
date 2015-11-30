@@ -21,19 +21,17 @@ def player_input(command):
 
 
 
-        if verb not in oma_funktiot.known_commands or noun not in oma_funktiot.known_rooms\
-                and noun not in oma_funktiot.known_people and noun not in oma_funktiot.known_objects\
-                and noun not in oma_funktiot.known_items:
+        if verb not in oma_funktiot.known_commands:
             print("You try to", command, "without significant result.")
             flag = 1
 
         elif verb == 'go' or 'move' or 'exit' or 'walk' or 'travel' or 'climb' or 'crawl' or 'run' and noun in oma_funktiot.known_rooms:
-            #print(verb, noun)
+            print(verb, noun)
             oma_funktiot.move(db, noun)
             global show_room_desc
             show_room_desc = 1
 
-        elif verb == 'talk'or 'ask' or 'interrogate' or 'interview' or 'speak' or 'tell' and noun in oma_funktiot.known_people:
+        elif verb == 'talk' or 'ask' or 'interrogate' or 'interview' or 'speak' or 'tell' and noun in oma_funktiot.known_people:
             print("foo")
 
 
