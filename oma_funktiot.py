@@ -23,7 +23,7 @@ known_commands.extend(known_looks)
 known_rooms=['guestroom', 'garage', 'corridor', 'maidroom', 'office', 'kitchen', 'stairs', 'ballroom',
                 'bathroom', 'bedroom', 'study', 'attic']
 known_people =['butler', 'jeeves', 'willy', 'groundskeeper', 'maid', 'penelope', 'chef', 'gordon', 'lady', 'sonya']
-known_objects =['table']
+known_objects =['table', 'cabinet', 'book', 'spellbook', 'corpse', 'lord', 'chadwick']
 known_items =['whiskey']
 
 #where you are
@@ -69,32 +69,14 @@ def conversation(db, suspect):
         if suspect == 'willy' or suspect == 'groundskeeper' and trust == 1:
             answer = str("\"There are weird things going on in this mansion. If I hadn't been working here all my life\n"
                    "and my father before me and his father before him, I would have quit a long time ago. \n"
-                   "I am feeling a bit thirsty, you don't happen to have any water of life?\"\n")
+                   "I am feeling a bit thirsty, you don't happen to have any liquid of gods?\"\n")
 
-            return answer
-        elif suspect == 'chef' or suspect == 'gordon' and trust == 1:
-            answer = str("Chef angily stops what he is doing and turns to you. \"What do you want?\n"
-                         "My job is to cook food and not to answer questions! Go away, I am trying to work!"
-                         "Go talk to Willy, if there is something to know he knows.\"\n")
-            return answer
-        elif suspect == 'maid' or suspect == 'penelope' and trust == 1:
-            answer = str("\"What a horrible thing to happen! I think I must find a new job... \nI guess this"
-                         " wasn't a success for me.\" ")
-            return answer
-        elif suspect == 'butler' or suspect == 'jeeves' and trust == 1:
-            answer = str("\"Oh how horrible act of violence this is! My dear master and friend is gone!\n"
-                         "Terrible night, I slept like a log after catering your marvelous party. What a "
-                         "shame.\nI hope that police arrives shortly and we can put the monster behind bars!\"\n")
-            return answer
-        elif suspect == 'lady' or suspect == 'sonya' and trust == 1:
-            answer = str("\"Bohoo! My love is gone! Go away you idiot! Can't you see that I am in grief."
-                         "I have nothing to say to you. Leave me alone! \"")
             return answer
 
     elif trust == 2 :
         if suspect == 'willy' or suspect == 'groundskeeper' and trust ==2:
-            answer = str("\" I heard her, miss Penelope. In the attic. She did some weird things! *hiccup* I went to war\n "
-                     "and I never heard anything as scary like that.  \"")
+            answer = str("\" I saw her, miss Penelope. She did some weird things! *hiccup* I went to war\n "
+                     "and I never saw anything like that.  \"")
             return answer
 
 
@@ -115,7 +97,7 @@ def location(room):
                    "room and a workdesk.\n")
     if room == 'corridor':
         return str("You look across a long corridor.\n"
-                   "The patterns on wallpapers run through the corridor. Few seemingly old maple wood sideboards with \n"
+                   "The patterns on wallpapers run through the corridor. Few seemingly old mablewood sideboards with \n"
                    "golden finishing and red silken veils on the walls resemble just how wealthy the residents living\n"
                    "here are. There's paintings of noble men lined up on the walls and you feel a quiet breeze coming\n"
                    "from the window.\n")
@@ -162,14 +144,19 @@ def location(room):
                    "The light is dim, but you can make out heeps of cardboard boxes along the walls.\n"
                    "A little light from a small window on the western end of the room reveals a small table with a chair.\n")
 
-
-def check_command (db, cmd):
-    cursor = db.cursor()
-    send = "select nimi from Synocmd where Synonyymi = '" + str(cmd) + "'"
-    cursor.execute(send)
-    results = cursor.fetchone()
-    if results is not None:
-        result = results[0]
+def look(db, object):
+    cursor=db.cursor()
+    cursor.execute("select location from player")
+    room = cursor.fetchone()[0]
+    if room == 6 and object == 'cabinet':
+        return str("There is only a single bottle of whiskey left in the cabinet.")
+    elif room == 12 and object == 'table':
+        return str("There is a strange and very old looking book on the table.")
+    elif room == 12 and object == 'book' or 'spellbook':
+        return str("The book is open at a section written in a strange looking language unknown to you.\n"
+                   "The words 'NULLI INCANTA DEMONOS' in big letters at the bottom of the page strike your attention.")
+    elif room == 10 and object == 'corpse' or 'lord' or 'chadwick':
+        return str("The corpse lies on the bed totally rigid. You notice no signs of violence.\n"
+                   "The expression on his face gives the impression of one scared to death.")
     else:
-        result = "dance"
-    return result
+        return str("You notice nothing of particular interest.")
