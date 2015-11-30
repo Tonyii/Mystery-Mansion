@@ -174,6 +174,7 @@ def check_command (db, cmd):
         result = "dance"
     return result
 
+
 def look(db, object):
     cursor=db.cursor()
     cursor.execute("select location from player")
