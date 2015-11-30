@@ -40,7 +40,15 @@ def move(db, noun):
 def people(db):
     cursor=db.cursor()
     cursor.execute("select description from npc where npc.location in (select location from player)")
-    return (cursor.fetchone())[0]
+
+    #hakee kaikki arvot ja sitten tarkistaa onko ketään huoneessa
+    rows = cursor.fetchone()
+    if rows is not None:
+        return_person = rows[0]
+    else:
+        return_person = "There's no one beside you in the room"
+
+    return return_person
 
 
 
