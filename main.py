@@ -57,3 +57,4 @@ while end_game == 0:
         player_input(first_input)
     else: end_game = 1
 
+#herp derp

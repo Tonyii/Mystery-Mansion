@@ -68,3 +68,20 @@ def location(room):
                    "The light is dim, but you can make out heeps of cardboard boxes along the walls.\n"
                    "A little light from a small window on the western end of the room reveals a small table with a chair.\n")
 
+def look(db, object):
+    cursor=db.cursor()
+    cursor.execute("select location from player")
+    room = cursor.fetchone()[0]
+    if room == 6 and object == 'cabinet':
+        return str("There is only a single bottle of whiskey left in the cabinet.")
+    elif room == 12 and object == 'table':
+        return str("There is a strange and very old looking book on the table.")
+    elif room == 12 and object == 'book' or 'spellbook':
+        return str("The book is open at a section written in a strange looking language unknown to you.\n"
+                   "The words 'NULLI INCANTA DEMONOS' in big letters at the bottom of the page strike your attention.")
+    elif room == 10 and object == 'corpse' or 'lord' or 'chadwick':
+        return str("The corpse lies on the bed totally rigid. You notice no signs of violence.\n"
+                   "The expression on his face gives the impression of one scared to death.")
+    else:
+        return str("You notice nothing of particular interest.")
+    #hurr
