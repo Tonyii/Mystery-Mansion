@@ -21,6 +21,7 @@ def player_input(command):
         #if verb not in oma_funktiot.known_commands:
             #print("You try to", command, "without significant result.")
         checkedcmd = oma_funktiot.check_command(db, verb)
+
         if checkedcmd in 'go' and noun in oma_funktiot.known_rooms:
             oma_funktiot.move(db, noun)
             global show_room_desc
@@ -31,7 +32,6 @@ def player_input(command):
 
         else:
             print("You try to", command, "without significant result.")
-
 
     except:
         IOError

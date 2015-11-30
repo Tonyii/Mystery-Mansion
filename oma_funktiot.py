@@ -157,4 +157,9 @@ def check_command (db, cmd):
     cursor = db.cursor()
     send = "select nimi from Synocmd where Synonyymi = '" + str(cmd) + "'"
     cursor.execute(send)
-    return cursor.fetchone()[0]
+    results = cursor.fetchone()
+    if results is not None:
+        result = results[0]
+    else:
+        result = "dance"
+    return result
