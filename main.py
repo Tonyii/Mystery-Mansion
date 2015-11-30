@@ -1,6 +1,6 @@
 import mysql.connector
+
 import oma_funktiot
-import dialog
 import getpass
 
 hostname = 'localhost'
@@ -43,7 +43,7 @@ while end_game == 0:
 
     if show_room_desc == 1:
         location = oma_funktiot.room_desc(db)
-        print(dialog.location(location))
+        print(oma_funktiot.location(location))
         show_room_desc = 0
         print(oma_funktiot.people(db))
 
