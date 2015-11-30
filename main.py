@@ -17,16 +17,11 @@ def player_input(command):
         #ignore hurr all capital letters in commands
         verb = verb.lower()
         noun = noun.lower()
-        flag = 0
-
-
 
         if verb not in oma_funktiot.known_commands:
             print("You try to", command, "without significant result.")
-            flag = 1
 
-        elif verb == 'go' or 'move' or 'exit' or 'walk' or 'travel' or 'climb' or 'crawl' or 'run' and noun in oma_funktiot.known_rooms:
-            print(verb, noun)
+        elif verb in oma_funktiot.known_moves and noun in oma_funktiot.known_rooms:
             oma_funktiot.move(db, noun)
             global show_room_desc
             show_room_desc = 1
@@ -49,8 +44,8 @@ while end_game == 0:
         location = oma_funktiot.room_desc(db)
         print(dialog.location(location))
         show_room_desc = 0
+        print(oma_funktiot.people(db))
 
-    print(oma_funktiot.people(db))
     first_input=input("What do you want to do?\n")
     if first_input != "quit":
         player_input(first_input)

@@ -1,7 +1,3 @@
-#Eetu Kaivola
+import oma_funktiot
 
-# -*- coding: utf-8 -*-
-
-print("foo")
-print("foobar")
-x=input("Oletko sinä mielestäsi kaunis?")
+print(oma_funktiot.known_commands)

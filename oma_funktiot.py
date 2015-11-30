@@ -7,17 +7,24 @@ def open_database(hostname, uname, pswd):
     return mysql.connector.connect(
         host=hostname, user=uname, passwd=pswd, db="MM", buffered=True
     )
-known_moves =   ['go', 'move', 'exit', 'walk', 'travel', 'climb', 'crawl', 'run']
-known_opens =   ['open', 'close']
-known_looks =   ['look', 'inspect', 'examine', 'search', 'investigate']
-known_takes =   ['take', 'lift', 'pick', 'get', 'grab']
-known_talks =   ['talk', 'ask', 'interrogate', 'interview', 'speak', 'tell']
-known_helps =   ['inventory', 'help', 'map']
-known_rooms =   ['guestroom', 'garage', 'corridor', 'maidroom', 'office', 'kitchen', 'stairs', 'ballroom',
+known_moves=['go', 'move', 'exit', 'walk', 'travel', 'climb', 'crawl', 'run']
+known_opens=['open', 'close']
+known_looks=['look', 'inspect', 'examine', 'search', 'investigate']
+known_takes=['take', 'lift', 'pick', 'get', 'grab']
+known_talks=['talk', 'ask', 'interrogate', 'interview', 'speak', 'tell']
+known_helps=['inventory', 'help', 'map']
+known_commands= []
+known_commands.extend(known_moves)
+known_commands.extend(known_talks)
+known_commands.extend(known_takes)
+known_commands.extend(known_helps)
+known_commands.extend(known_opens)
+known_commands.extend(known_looks)
+known_rooms=['guestroom', 'garage', 'corridor', 'maidroom', 'office', 'kitchen', 'stairs', 'ballroom',
                 'bathroom', 'bedroom', 'study', 'attic']
-known_people =  ['butler']
-known_objects = ['table']
-known_items =   ['whiskey']
+known_people =['butler']
+known_objects =['table']
+known_items =['whiskey']
 
 #where you are
 def room_desc(db):
@@ -45,7 +52,7 @@ def people(db):
     rows = cursor.fetchone()
     if rows is not None:
         rperson = rows[0]
-        return_person = str("There's " + rperson + " in the same room.")
+        return_person = str(rperson + " is in the room.\n")
 
     else:
         return_person = "There's no one beside you in the room.\n"
