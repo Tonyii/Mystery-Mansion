@@ -21,12 +21,12 @@ def player_input(command):
         #if verb not in oma_funktiot.known_commands:
             #print("You try to", command, "without significant result.")
         checkedcmd = oma_funktiot.check_command(db, verb)
-        if checkedcmd in oma_funktiot.known_moves and noun in oma_funktiot.known_rooms:
+        if checkedcmd in 'go' and noun in oma_funktiot.known_rooms:
             oma_funktiot.move(db, noun)
             global show_room_desc
             show_room_desc = 1
 
-        elif checkedcmd in oma_funktiot.known_talks and noun in oma_funktiot.known_people:
+        elif checkedcmd in 'talk' and noun in oma_funktiot.known_people:
             print(oma_funktiot.conversation(db, noun))
 
         else:
