@@ -15,13 +15,13 @@ def location(room):
                    "in ages. Rakes, shovels and picks fill the walls and a moist air mixed with the scent of wood "
                    "fills \n"
                    "your lugns. At the end of the room theres a small lamp that glances yellowy light across the "
-                   "room and a workdesk.")
+                   "room and a workdesk.\n")
     if room == 'corridor':
         return str("You look across a long corridor.\n"
                    "The patterns on wallpapers run through the corridor. Few seemingly old mablewood sideboards with \n"
                    "golden finishing and red silken veils on the walls resemble just how wealthy the residents living\n"
                    "here are. There's paintings of noble men lined up on the walls and you feel a quiet breeze coming\n"
-                   "from the window. ")
+                   "from the window.\n")
     if room == 'maidroom':
         return str("insert maids chamber description here:")
     if room == 'office':
