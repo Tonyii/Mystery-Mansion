@@ -26,7 +26,7 @@ def player_input(command):
             global show_room_desc
             show_room_desc = 1
 
-        elif verb in oma_funktiot.known_talks and noun in oma_funktiot.known_people:
+        elif checkedcmd in oma_funktiot.known_talks and noun in oma_funktiot.known_people:
             print(oma_funktiot.conversation(db, noun))
 
         else:
