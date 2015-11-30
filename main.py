@@ -18,14 +18,22 @@ def player_input(command):
         verb = verb.lower()
         noun = noun.lower()
 
+        flag = 0
+
 
         if verb not in oma_funktiot.known_commands or noun not in oma_funktiot.known_rooms:
+
             print("You try to", command, "without significant result.")
 
         elif verb == 'go' or 'move' or 'exit' or 'walk' or 'travel' or 'climb' or 'crawl' or 'run' and noun in oma_funktiot.known_rooms:
             #print(verb, noun)
             oma_funktiot.move(db, noun)
-
+            flag = 1
+        if flag == 0 and verb == 'talk' or 'ask' or 'interrogate' or 'interview' or 'speak' or 'tell'\
+                and noun not in oma_funktiot.known_people:
+            print(noun, "looks at you without understanding a word you say.")
+        elif verb == 'talk'or 'ask' or 'interrogate' or 'interview' or 'speak' or 'tell' and noun in oma_funktiot.known_people:
+            print("foo")
 
 
     except:

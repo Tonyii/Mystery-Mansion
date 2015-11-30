@@ -15,6 +15,7 @@ known_commands =['go', 'move', 'exit', 'walk', 'travel', 'climb', 'crawl', 'run'
                  'inventory', 'help', 'map', 'quit']
 known_rooms =['guestroom', 'garage', 'corridor', 'maidroom', 'office', 'kitchen', 'stairs', 'ballroom',
               'bathroom', 'bedroom', 'study', 'attic']
+known_people = ['butler']
 
 #where you are
 
