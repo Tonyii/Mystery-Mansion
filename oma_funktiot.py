@@ -190,4 +190,4 @@ def look(db, object):
                   "The expression on his face gives the impression of one scared to death.\n")
     else:
         return str("You notice nothing of particular interest.")
-#pitäisi toimia
+#pitäisi toimia kunnolla
