@@ -7,19 +7,19 @@ def open_database(hostname, uname, pswd):
     return mysql.connector.connect(
         host=hostname, user=uname, passwd=pswd, db="MM", buffered=True
     )
-known_commands =['go', 'move', 'exit', 'walk', 'travel', 'climb', 'crawl', 'run',
-                 'open', 'close',
-                 'look', 'inspect', 'examine', 'search', 'investigate',
-                 'take', 'lift', 'pick', 'get', 'grab',
-                 'talk', 'ask', 'interrogate', 'interview', 'speak', 'tell',
-                 'inventory', 'help', 'map', 'quit']
-known_rooms =['guestroom', 'garage', 'corridor', 'maidroom', 'office', 'kitchen', 'stairs', 'ballroom',
-              'bathroom', 'bedroom', 'study', 'attic']
-known_people = ['butler']
-known_objects =['table']
-known_items = ['whiskey']
-#where you are
+known_moves =   ['go', 'move', 'exit', 'walk', 'travel', 'climb', 'crawl', 'run']
+known_opens =   ['open', 'close']
+known_looks =   ['look', 'inspect', 'examine', 'search', 'investigate']
+known_takes =   ['take', 'lift', 'pick', 'get', 'grab']
+known_talks =   ['talk', 'ask', 'interrogate', 'interview', 'speak', 'tell']
+known_helps =   ['inventory', 'help', 'map']
+known_rooms =   ['guestroom', 'garage', 'corridor', 'maidroom', 'office', 'kitchen', 'stairs', 'ballroom',
+                'bathroom', 'bedroom', 'study', 'attic']
+known_people =  ['butler']
+known_objects = ['table']
+known_items =   ['whiskey']
 
+#where you are
 def room_desc(db):
     cursor=db.cursor()
     cursor.execute("select description from room "
@@ -49,7 +49,6 @@ def people(db):
         return_person = "There's no one beside you in the room"
 
     return return_person
-
 
 
 
