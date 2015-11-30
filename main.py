@@ -26,8 +26,9 @@ def player_input(command):
             global show_room_desc
             show_room_desc = 1
 
-        elif verb == 'talk' or 'ask' or 'interrogate' or 'interview' or 'speak' or 'tell' and noun in oma_funktiot.known_people:
-            print("foo")
+        elif verb in oma_funktiot.known_talks and noun in oma_funktiot.known_people:
+            print(dialog.conversation(db, noun))
+
 
 
     except:
