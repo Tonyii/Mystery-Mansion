@@ -35,6 +35,7 @@ def move(db, noun):
 
     cursor.execute(sql)
 
+
 def people(db):
     cursor=db.cursor()
     cursor.execute("select description from npc where npc.location in (select location from player)")
