@@ -64,15 +64,18 @@ def conversation(db, suspect):
     cursor=db.cursor()
     cursor.execute("select npc.trust from npc where npc.location in (select location from player)")
     trust = cursor.fetchone()[0]
-    if suspect == 'willy' or suspect == 'groundskeeper' and trust == 1:
-        answer = str("\"There are weird things going on in this mansion. If I hadn't been working here all my life\n"
+
+    if trust == 1 :
+        if suspect == 'willy' or suspect == 'groundskeeper' and trust == 1:
+            answer = str("\"There are weird things going on in this mansion. If I hadn't been working here all my life\n"
                    "and my father before me and his father before him, I would have quit a long time ago. \n"
                    "I am feeling a bit thirsty, you don't happen to have any liquid of gods?\"\n")
 
-        return answer
-    if suspect == 'willy' or suspect == 'groundskeeper' and trust ==2:
-        answer = str("\" I saw her, miss Penelope. She did some weird things! *hiccup* I went to war\n "
+            return answer
+    elif trust == 2 :
+        if suspect == 'willy' or suspect == 'groundskeeper' and trust ==2:
+            answer = str("\" I saw her, miss Penelope. She did some weird things! *hiccup* I went to war\n "
                      "and I never saw anything like that.  \"")
-        return answer
+            return answer
 
 
