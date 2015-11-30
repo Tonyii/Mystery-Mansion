@@ -1,6 +1,6 @@
 import mysql.connector
+
 import oma_funktiot
-import dialog
 import getpass
 
 hostname = 'localhost'
@@ -18,10 +18,10 @@ def player_input(command):
         verb = verb.lower()
         noun = noun.lower()
 
-        if verb not in oma_funktiot.known_commands:
-            print("You try to", command, "without significant result.")
+        #if verb not in oma_funktiot.known_commands:
+            #print("You try to", command, "without significant result.")
 
-        elif verb in oma_funktiot.known_moves and noun in oma_funktiot.known_rooms:
+        if verb in oma_funktiot.known_moves and noun in oma_funktiot.known_rooms:
             oma_funktiot.move(db, noun)
             global show_room_desc
             show_room_desc = 1
@@ -29,6 +29,8 @@ def player_input(command):
         elif verb in oma_funktiot.known_talks and noun in oma_funktiot.known_people:
             print(oma_funktiot.conversation(db, noun))
 
+        else:
+            print("You try to", command, "without significant result.")
 
 
     except:
@@ -43,7 +45,7 @@ while end_game == 0:
 
     if show_room_desc == 1:
         location = oma_funktiot.room_desc(db)
-        print(dialog.location(location))
+        print(oma_funktiot.location(location))
         show_room_desc = 0
         print(oma_funktiot.people(db))
 
