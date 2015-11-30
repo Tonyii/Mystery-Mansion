@@ -18,10 +18,10 @@ def player_input(command):
         verb = verb.lower()
         noun = noun.lower()
 
-        if verb not in oma_funktiot.known_commands:
-            print("You try to", command, "without significant result.")
+        #if verb not in oma_funktiot.known_commands:
+            #print("You try to", command, "without significant result.")
 
-        elif verb in oma_funktiot.known_moves and noun in oma_funktiot.known_rooms:
+        if verb in oma_funktiot.known_moves and noun in oma_funktiot.known_rooms:
             oma_funktiot.move(db, noun)
             global show_room_desc
             show_room_desc = 1
@@ -29,6 +29,8 @@ def player_input(command):
         elif verb in oma_funktiot.known_talks and noun in oma_funktiot.known_people:
             print(oma_funktiot.conversation(db, noun))
 
+        else:
+            print("You try to", command, "without significant result.")
 
 
     except:
