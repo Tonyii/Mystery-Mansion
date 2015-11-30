@@ -69,7 +69,7 @@ def conversation(db, suspect):
         if suspect == 'willy' or suspect == 'groundskeeper' and trust == 1:
             answer = str("\"There are weird things going on in this mansion. If I hadn't been working here all my life\n"
                    "and my father before me and his father before him, I would have quit a long time ago. \n"
-                   "I am feeling a bit thirsty, you don't happen to have any liquid of gods?\"\n")
+                   "I am feeling a bit thirsty, you don't happen to have any water of life?\"\n")
 
             return answer
         elif suspect == 'chef' or suspect == 'gordon' and trust == 1:
