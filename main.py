@@ -17,6 +17,7 @@ def player_input(command):
         #ignore hurr all capital letters in commands
         verb = verb.lower()
         noun = noun.lower()
+        flag = 0
 
 
 
