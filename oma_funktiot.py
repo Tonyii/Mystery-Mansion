@@ -160,3 +160,4 @@ def look(db, object):
                    "The expression on his face gives the impression of one scared to death.")
     else:
         return str("You notice nothing of particular interest.")
+    #hurr
