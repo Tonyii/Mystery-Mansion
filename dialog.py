@@ -4,7 +4,6 @@
 import oma_funktiot
 import mysql.connector
 
-
 def location(room):
     if room == 'guestroom':
         return str("\nYou are in the mansion's guest bedroom.\nThe walls are painted light yellow and there is a "
@@ -68,20 +67,15 @@ def location(room):
                    "The light is dim, but you can make out heeps of cardboard boxes along the walls.\n"
                    "A little light from a small window on the western end of the room reveals a small table with a chair.\n")
 
-def look(db, object):
-    cursor=db.cursor()
-    cursor.execute("select location from player")
-    room = cursor.fetchone()[0]
-    if room == 6 and object == 'cabinet':
-        return str("There is only a single bottle of whiskey left in the cabinet.")
-    elif room == 12 and object == 'table':
-        return str("There is a strange and very old looking book on the table.")
-    elif room == 12 and object == 'book' or 'spellbook':
-        return str("The book is open at a section written in a strange looking language unknown to you.\n"
-                   "The words 'NULLI INCANTA DEMONOS' in big letters at the bottom of the page strike your attention.")
-    elif room == 10 and object == 'corpse' or 'lord' or 'chadwick':
-        return str("The corpse lies on the bed totally rigid. You notice no signs of violence.\n"
-                   "The expression on his face gives the impression of one scared to death.")
-    else:
-        return str("You notice nothing of particular interest.")
-    #hurr
+def conversation(db, suspect):
+    print('fooman')
+    cursor = db.cursor
+    trust = cursor.execute("select trust from npc where npc.location in (select location from player)")
+    print(suspect, trust)
+    if suspect == 'willy' and trust == 1:
+        print(suspect, trust)
+        answer = str("There are weird things going on in this mansion. If I hadn't been working here all my life\n"
+                   " and my father before me and his father before him, I would have quit a long time ago. \n"
+                   "I am feeling a bit thirsty, you don't happen to have any liquid of gods?")
+
+        return answer
