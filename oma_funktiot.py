@@ -64,48 +64,54 @@ def people(db):
 
     return return_person
 
-
 def conversation(db, suspect):
     cursor=db.cursor()
 
     #Tarkistaa nimen synonyymit ja vaihtaa oikean nimen
-    send = "select nimi from SynoPerson where Synonyymi = '" + suspect + "'"
+    send = "select npc.npcid, npc.trust from SynoPerson, npc where synoperson.Synonyymi = '" + suspect + "' and Synoperson.personID = npc.npcid"
     cursor.execute(send)
     person = cursor.fetchone()
 
     if person is not None:
-        cursor.execute("select npc.trust from npc where npc.location in (select location from player)")
-        trust = cursor.fetchone()[0]
+        print("person is not none")
+        personid = person[0]
+        trust = person[1]
 
-
-    if trust == 1 :
-        if suspect == 'willy' and trust == 1:
+    print("trust is", trust)
+    print("person is", personid)
+    if trust == 1:
+        #WILLY
+        if personid == 1:
             answer = str("\"There are weird things going on in this mansion. If I hadn't been working here all my life\n"
                    "and my father before me and his father before him, I would have quit a long time ago. \n"
                    "I am feeling a bit thirsty, you don't happen to have any water of life?\"\n")
 
             return answer
-        elif suspect == 'chef' or suspect == 'gordon' and trust == 1:
+        #CHEF
+        elif suspect == 3:
             answer = str("Chef angily stops what he is doing and turns to you. \"What do you want?\n"
                          "My job is to cook food and not to answer questions! Go away, I am trying to work!"
                          "Go talk to Willy, if there is something to know he knows.\"\n")
             return answer
-        elif suspect == 'maid' or suspect == 'penelope' and trust == 1:
+        #MAID
+        elif suspect == 2:
             answer = str("\"What a horrible thing to happen! I think I must find a new job... \nI guess this"
                          " wasn't a success for me.\" ")
             return answer
-        elif suspect == 'butler' or suspect == 'jeeves' and trust == 1:
+        #BUTLER
+        elif suspect == 4:
             answer = str("\"Oh how horrible act of violence this is! My dear master and friend is gone!\n"
                          "Terrible night, I slept like a log after catering your marvelous party. What a "
                          "shame.\nI hope that police arrives shortly and we can put the monster behind bars!\"\n")
             return answer
-        elif suspect == 'lady' or suspect == 'sonya' and trust == 1:
+        #SONYA
+        elif suspect == 5:
             answer = str("\"Bohoo! My love is gone! Go away you idiot! Can't you see that I am in grief."
                          "I have nothing to say to you. Leave me alone! \"")
             return answer
 
     elif trust == 2 :
-        if suspect == 'willy' or suspect == 'groundskeeper' and trust ==2:
+        if suspect == 1:
             answer = str("\" I heard her, miss Penelope. In the attic. She did some weird things! *hiccup* I went to war\n "
                      "and I never heard anything as scary like that.  \"")
             return answer

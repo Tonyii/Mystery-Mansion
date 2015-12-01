@@ -42,7 +42,7 @@ create table Synocmd(
 	primary key (Synonyymi));
 
 create table SynoPerson(
-	nimi varchar(20) not null,
+	personID varchar(20) not null,
 	Synonyymi varchar(20) not null,
 	primary key (Synonyymi));
 
@@ -61,4 +61,4 @@ insert into Synocmd values ("take", "take"),("take","lift"), ("take","pick"), ("
 insert into Synocmd values ("room","questroom"),("room","garage"),("room","corridor"),("room","maidroom"),("room","office"),("room","kitchen"),("room","stairs"),("room","ballroom"),("room","bathroom"),("room","bedroom"),("room","study"),("room","attic");
 insert into Synocmd values ("person","butler"),("person","jeeves"),("person","jeeves the butler"),("person", "willy"),("person","groundskeeper"),("person","willie"),("person","maid"),("person","penelope"),("person","gordon"),("person","chef"),("person","sonya"),("person","lady"),("person","mistress");
 
-insert into SynoPerson values ("butler","butler"),("butler","jeeves"),("butler","jeeves the butler"),("willy", "willy"),("willy","groundskeeper"),("willy","willie"),("maid","maid"),("maid","penelope"),("chef","gordon"),("chef","chef"),("sonya","sonya"),("sonya","lady"),("sonya","mistress");
+insert into SynoPerson values (4,"butler"),(4,"jeeves"),(4,"jeeves the butler"),(1, "willy"),(1,"groundskeeper"),(1,"willie"),(2,"maid"),(2,"penelope"),(3,"gordon"),(3,"chef"),(5,"sonya"),(5,"lady"),(5,"mistress");
