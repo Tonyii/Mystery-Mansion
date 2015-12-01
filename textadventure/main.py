@@ -3,6 +3,7 @@ import mysql.connector
 import oma_funktiot
 import getpass
 
+#asd
 hostname = 'localhost'
 uname = 'player'
 pswd = 'mm'
@@ -20,18 +21,21 @@ def player_input(command):
 
         #if verb not in oma_funktiot.known_commands:
             #print("You try to", command, "without significant result.")
-        checkedcmd = oma_funktiot.check_command(db, verb)
+        checkedverb = oma_funktiot.check_command(db, verb)
+        checkednoun = oma_funktiot.check_noun(db, noun)
 
-        if checkedcmd in 'go' and noun in oma_funktiot.known_rooms:
+        #tarkistaa onko palautettu "go" verbi ja "room" subst.
+        if checkedverb == 'go' and checkednoun == 'room':
+            #lahettaa sitten alkuperaisen noun:in
             oma_funktiot.move(db, noun)
             global show_room_desc
             show_room_desc = 1
 
-        elif checkedcmd in 'talk' and noun in oma_funktiot.known_people:
+        elif checkedverb == 'talk' and checkednoun == 'person':
             print(oma_funktiot.conversation(db, noun))
 
-        elif verb in oma_funktiot.known_looks:
-            print(oma_funktiot.look(db, noun))
+        elif checkedverb in oma_funktiot.known_looks:
+            print(oma_funktiot.look(db, checkednoun))
 
         elif verb in oma_funktiot.known_takes:
             print(oma_funktiot.take(db, noun))

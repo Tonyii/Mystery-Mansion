@@ -8,11 +8,15 @@ def open_database(hostname, uname, pswd):
     return mysql.connector.connect(
         host=hostname, user=uname, passwd=pswd, db="MM", buffered=True
     )
+#moves Sql:ssa
 known_moves=['go', 'move', 'exit', 'walk', 'travel', 'climb', 'crawl', 'run']
-known_opens=['open', 'close']
+#known looks sql:Ssa
 known_looks=['look', 'inspect', 'examine', 'search', 'investigate']
+#known takes sql:ssa
 known_takes=['take', 'lift', 'pick', 'get', 'grab']
+#talks sql:ssa
 known_talks=['talk', 'ask', 'interrogate', 'interview', 'speak', 'tell']
+known_opens=['open', 'close']
 known_helps=['inventory', 'help', 'map']
 known_commands= []
 known_commands.extend(known_moves)
@@ -23,7 +27,8 @@ known_commands.extend(known_opens)
 known_commands.extend(known_looks)
 known_rooms=['guestroom', 'garage', 'corridor', 'maidroom', 'office', 'kitchen', 'stairs', 'ballroom',
                 'bathroom', 'bedroom', 'study', 'attic']
-known_people =['butler', 'jeeves', 'willy', 'groundskeeper', 'maid', 'penelope', 'chef', 'gordon', 'lady', 'sonya']
+#people sql:s
+known_people =['butler', 'willy', 'maid', 'chef', 'lady']
 known_objects =['table', 'cabinet', 'book', 'spellbook', 'corpse', 'lord', 'chadwick']
 known_items =['whiskey']
 
@@ -60,40 +65,51 @@ def people(db):
 
     return return_person
 
-
 def conversation(db, suspect):
     cursor=db.cursor()
-    cursor.execute("select npc.trust from npc where npc.location in (select location from player)")
-    trust = cursor.fetchone()[0]
 
-    if trust == 1 :
-        if suspect == 'willy' or suspect == 'groundskeeper' and trust == 1:
+    #Tarkistaa nimen synonyymit ja vaihtaa oikean nimen
+    send = "select npc.npcid, npc.trust from SynoPerson, npc where synoperson.Synonyymi = '" + suspect + "' and Synoperson.personID = npc.npcid"
+    cursor.execute(send)
+    person = cursor.fetchone()
+
+    if person is not None:
+        personid = person[0]
+        trust = person[1]
+
+    if trust == 1:
+        #WILLY
+        if personid == 1:
             answer = str("\"There are weird things going on in this mansion. If I hadn't been working here all my life\n"
                    "and my father before me and his father before him, I would have quit a long time ago. \n"
                    "I am feeling a bit thirsty, you don't happen to have any water of life?\"\n")
 
             return answer
-        elif suspect == 'chef' or suspect == 'gordon' and trust == 1:
+        #CHEF
+        elif suspect == 3:
             answer = str("Chef angrily stops what he is doing and turns to you. \"What do you want?\n"
                          "My job is to cook food and not to answer questions! Go away, I am trying to work!"
                          "Go talk to Willy, if there is something to know he knows.\"\n")
             return answer
-        elif suspect == 'maid' or suspect == 'penelope' and trust == 1:
+        #MAID
+        elif suspect == 2:
             answer = str("\"What a horrible thing to happen! I think I must find a new job... \nI guess this"
                          " wasn't a success for me.\" ")
             return answer
-        elif suspect == 'butler' or suspect == 'jeeves' and trust == 1:
+        #BUTLER
+        elif suspect == 4:
             answer = str("\"Oh how horrible act of violence this is! My dear master and friend is gone!\n"
                          "Terrible night, I slept like a log after catering your marvelous party. What a "
                          "shame.\nI hope that police arrives shortly and we can put the monster behind bars!\"\n")
             return answer
-        elif suspect == 'lady' or suspect == 'sonya' and trust == 1:
+        #SONYA
+        elif suspect == 5:
             answer = str("\"Bohoo! My love is gone! Go away you idiot! Can't you see that I am in grief."
                          "I have nothing to say to you. Leave me alone! \"")
             return answer
 
     elif trust == 2 :
-        if suspect == 'willy' or suspect == 'groundskeeper' and trust ==2:
+        if suspect == 1:
             answer = str("\" I heard her, miss Penelope. In the attic. She did some weird things! *hiccup* I went to war\n "
                      "and I never heard anything as scary like that.  \"")
             return answer
@@ -207,6 +223,20 @@ def look(db, object):
         return str("You notice nothing of particular interest.")
 #pitäisi toimia kunnolla
 
+
+#Tarkistaa synonyymit ja palauttaa joko löydetyn synonyymin oikean sanan tai vaihtoehtoisesti palauttaa annetun
+#syotteen takaisin. huoneiden osalta palauttaa vain sanan "room".
+def check_noun (db, noun):
+    cursor = db.cursor()
+    send = "select nimi from Synocmd where Synonyymi = '" + noun + "'"
+    cursor.execute(send)
+    results = cursor.fetchone()
+    if results is not None:
+        result =results[0]
+        return result
+    else:
+        return noun
+
 def take(db, object):
     cursor=db.cursor()
     cursor.execute("select location from player")
@@ -226,4 +256,3 @@ def inventory(db):
     cursor.execute("select item.description from item where item.location = 13")
     inv=cursor.fetchall()
     return inv
-
