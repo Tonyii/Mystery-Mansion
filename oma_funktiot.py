@@ -1,5 +1,5 @@
 #Eetu Kaivola
-#testataan
+#testataan branchia
 # -*- coding: utf-8 -*-
 import mysql.connector
 #opens connection to database...
