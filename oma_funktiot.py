@@ -7,11 +7,15 @@ def open_database(hostname, uname, pswd):
     return mysql.connector.connect(
         host=hostname, user=uname, passwd=pswd, db="MM", buffered=True
     )
+#moves Sql:ssa
 known_moves=['go', 'move', 'exit', 'walk', 'travel', 'climb', 'crawl', 'run']
-known_opens=['open', 'close']
+#known looks sql:Ssa
 known_looks=['look', 'inspect', 'examine', 'search', 'investigate']
+#known takes sql:ssa
 known_takes=['take', 'lift', 'pick', 'get', 'grab']
+#talks sql:ssa
 known_talks=['talk', 'ask', 'interrogate', 'interview', 'speak', 'tell']
+known_opens=['open', 'close']
 known_helps=['inventory', 'help', 'map']
 known_commands= []
 known_commands.extend(known_moves)
@@ -22,7 +26,8 @@ known_commands.extend(known_opens)
 known_commands.extend(known_looks)
 known_rooms=['guestroom', 'garage', 'corridor', 'maidroom', 'office', 'kitchen', 'stairs', 'ballroom',
                 'bathroom', 'bedroom', 'study', 'attic']
-known_people =['butler', 'jeeves', 'willy', 'groundskeeper', 'maid', 'penelope', 'chef', 'gordon', 'lady', 'sonya']
+#people sql:s
+known_people =['butler', 'willy', 'maid', 'chef', 'lady']
 known_objects =['table']
 known_items =['whiskey']
 
@@ -62,11 +67,19 @@ def people(db):
 
 def conversation(db, suspect):
     cursor=db.cursor()
-    cursor.execute("select npc.trust from npc where npc.location in (select location from player)")
-    trust = cursor.fetchone()[0]
+
+    #Tarkistaa nimen synonyymit ja vaihtaa oikean nimen
+    send = "select nimi from SynoPerson where Synonyymi = '" + suspect + "'"
+    cursor.execute(send)
+    person = cursor.fetchone()
+
+    if person is not None:
+        cursor.execute("select npc.trust from npc where npc.location in (select location from player)")
+        trust = cursor.fetchone()[0]
+
 
     if trust == 1 :
-        if suspect == 'willy' or suspect == 'groundskeeper' and trust == 1:
+        if suspect == 'willy' and trust == 1:
             answer = str("\"There are weird things going on in this mansion. If I hadn't been working here all my life\n"
                    "and my father before me and his father before him, I would have quit a long time ago. \n"
                    "I am feeling a bit thirsty, you don't happen to have any water of life?\"\n")
@@ -192,3 +205,17 @@ def look(db, object):
     else:
         return str("You notice nothing of particular interest.")
 #pitäisi toimia kunnolla
+
+
+#Tarkistaa synonyymit ja palauttaa joko löydetyn synonyymin oikean sanan tai vaihtoehtoisesti palauttaa annetun
+#syotteen takaisin. huoneiden osalta palauttaa vain sanan "room".
+def check_noun (db, noun):
+    cursor = db.cursor()
+    send = "select nimi from Synocmd where Synonyymi = '" + noun + "'"
+    cursor.execute(send)
+    results = cursor.fetchone()
+    if results is not None:
+        result =results[0]
+        return result
+    else:
+        return noun

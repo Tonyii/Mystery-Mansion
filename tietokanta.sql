@@ -41,6 +41,11 @@ create table Synocmd(
 	Synonyymi varchar(20) not null,
 	primary key (Synonyymi));
 
+create table SynoPerson(
+	nimi varchar(20) not null,
+	Synonyymi varchar(20) not null,
+	primary key (Synonyymi));
+
 insert into Room values (1, "guestroom"), (2, "garage"), (3, "corridor"),
 			(4, "maidroom"), (5, "office"), (6, "kitchen"), (7, "stairs"), (8, "ballroom"),
             (9, "bathroom"), (10, "master bedroom"), (11, "study"), (12, "attic");
@@ -49,4 +54,11 @@ insert into Player values (1, 1);
 insert into NPC values (1, "Groundskeeper Willy", 2, 1), (2, "Maid Penelope", 4, 1), (3, "Chef Gordon", 6, 1), (4, "Jeeves the Butler", 5, 1), (5, "Lady Sonya", 10, 1);
 insert into Item values (1, "whiskey", null, 6), (2, "torn page", null, 1), (3, "safe", null, 11), (4, "combination", null, 10), (5, "dark spellbook", null, 12);
 
-insert into Synocmd values ("go", "go"), ("go","move"), ("go","exit"),("go","walk"), ("go","travel"), ("go", "climb"), ("go", "crawl"), ("go", "run"), ("talk", "talk"), ("talk", "ask"), ("talk", "interrogate"), ("talk", "interview"), ("talk", "speak"), ("talk", "tell");
+insert into Synocmd values ("go", "go"), ("go","move"), ("go","exit"),("go","walk"), ("go","travel"), ("go", "climb"), ("go", "crawl"), ("go", "run");
+insert into Synocmd values ("talk", "talk"), ("talk", "ask"), ("talk", "interrogate"), ("talk", "interview"), ("talk", "speak"), ("talk", "tell");
+insert into Synocmd values ("look", "look"),("look", "inspect"),("look","examine"),("look", "search"),("look", "investigate");
+insert into Synocmd values ("take", "take"),("take","lift"), ("take","pick"), ("take","get"), ("take","grab");
+insert into Synocmd values ("room","questroom"),("room","garage"),("room","corridor"),("room","maidroom"),("room","office"),("room","kitchen"),("room","stairs"),("room","ballroom"),("room","bathroom"),("room","bedroom"),("room","study"),("room","attic");
+insert into Synocmd values ("person","butler"),("person","jeeves"),("person","jeeves the butler"),("person", "willy"),("person","groundskeeper"),("person","willie"),("person","maid"),("person","penelope"),("person","gordon"),("person","chef"),("person","sonya"),("person","lady"),("person","mistress");
+
+insert into SynoPerson values ("butler","butler"),("butler","jeeves"),("butler","jeeves the butler"),("willy", "willy"),("willy","groundskeeper"),("willy","willie"),("maid","maid"),("maid","penelope"),("chef","gordon"),("chef","chef"),("sonya","sonya"),("sonya","lady"),("sonya","mistress");
