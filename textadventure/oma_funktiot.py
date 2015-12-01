@@ -74,7 +74,7 @@ def conversation(db, suspect):
 
             return answer
         elif suspect == 'chef' or suspect == 'gordon' and trust == 1:
-            answer = str("Chef angily stops what he is doing and turns to you. \"What do you want?\n"
+            answer = str("Chef angrily stops what he is doing and turns to you. \"What do you want?\n"
                          "My job is to cook food and not to answer questions! Go away, I am trying to work!"
                          "Go talk to Willy, if there is something to know he knows.\"\n")
             return answer
@@ -187,10 +187,11 @@ def look(db, object):
     if room == 6 and object == 'cabinet':
         cursor=db.cursor()
         cursor.execute("select location from item where item.location in (select location from player)")
-        item = cursor.fetchone()[0]
-        if item == 6:
+        item = cursor.fetchone()
+        if item is not None:
             return str("There is only a single bottle of whiskey left in the cabinet.\n")
-
+        else:
+            return str("You notice nothing of particular interest.")
     elif room == 12 and object == 'table':
         return str("There is a strange and very old looking book on the table.\n")
 
