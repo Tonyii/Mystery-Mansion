@@ -86,30 +86,30 @@ def conversation(db, suspect):
 
             return answer
         #CHEF
-        elif suspect == 3:
+        elif personid == 3:
             answer = str("Chef angrily stops what he is doing and turns to you. \"What do you want?\n"
                          "My job is to cook food and not to answer questions! Go away, I am trying to work!"
                          "Go talk to Willy, if there is something to know he knows.\"\n")
             return answer
         #MAID
-        elif suspect == 2:
+        elif personid == 2:
             answer = str("\"What a horrible thing to happen! I think I must find a new job... \nI guess this"
                          " wasn't a success for me.\" ")
             return answer
         #BUTLER
-        elif suspect == 4:
+        elif personid == 4:
             answer = str("\"Oh how horrible act of violence this is! My dear master and friend is gone!\n"
                          "Terrible night, I slept like a log after catering your marvelous party. What a "
                          "shame.\nI hope that police arrives shortly and we can put the monster behind bars!\"\n")
             return answer
         #SONYA
-        elif suspect == 5:
+        elif personid == 5:
             answer = str("\"Bohoo! My love is gone! Go away you idiot! Can't you see that I am in grief."
                          "I have nothing to say to you. Leave me alone! \"")
             return answer
 
     elif trust == 2 :
-        if suspect == 1:
+        if personid == 1:
             answer = str("\" I heard her, miss Penelope. In the attic. She did some weird things! *hiccup* I went to war\n "
                      "and I never heard anything as scary like that.  \"")
             return answer
