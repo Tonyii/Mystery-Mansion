@@ -23,7 +23,7 @@ known_commands.extend(known_looks)
 known_rooms=['guestroom', 'garage', 'corridor', 'maidroom', 'office', 'kitchen', 'stairs', 'ballroom',
                 'bathroom', 'bedroom', 'study', 'attic']
 known_people =['butler', 'jeeves', 'willy', 'groundskeeper', 'maid', 'penelope', 'chef', 'gordon', 'lady', 'sonya']
-known_objects =['table']
+known_objects =['table', 'cabinet', 'book', 'spellbook', 'corpse', 'lord', 'chadwick']
 known_items =['whiskey']
 
 #where you are
@@ -104,10 +104,11 @@ def location(room):
         return str("\nYou are in the mansion's guest bedroom.\nThe walls are painted light yellow and there is a "
                    "painting of a man with a firm look on his face. \nThe bed you slept in is not made and "
                    "there is an empty champagne glass on the night table. \nYou get the chills from this room "
-                   "now even though it did not seem to matter last night.\n")
+                   "now even though it did not seem to matter last night.\n"
+                   "There is a single door leading to the corridor.\n")
     if room == 'garage':
         return str("You enter the groundskeepers garage.\n"
-                   "The door barely opens enough for you to slip in. There's boxes behind the door that havent been "
+                   "The door barely opens enough for you to slip in. There are boxes behind the door that haven't been "
                    "touched \n"
                    "in ages. Rakes, shovels and picks fill the walls and a moist air mixed with the scent of wood "
                    "fills \n"
@@ -115,12 +116,15 @@ def location(room):
                    "room and a workdesk.\n")
     if room == 'corridor':
         return str("You look across a long corridor.\n"
-                   "The patterns on wallpapers run through the corridor. Few seemingly old maple wood sideboards with \n"
+                   "The patterns on the wallpaper run through the corridor. Few seemingly old maple wood sideboards with \n"
                    "golden finishing and red silken veils on the walls resemble just how wealthy the residents living\n"
-                   "here are. There's paintings of noble men lined up on the walls and you feel a quiet breeze coming\n"
-                   "from the window.\n")
+                   "here are. There are paintings of noble men lined up on the walls and you feel a quiet breeze coming\n"
+                   "from the window.\n"
+                   "The corridor's five doors lead to the guestroom, maidroom, the kitchen, office, and the garage.\n"
+                   "At the end of the corridor ascends the stairs leading to the second floor ballroom.\n")
     if room == 'maidroom':
-        return str("insert maids chamber description here:")
+        return str("You enter the Maid's Chamber.\n"
+                   "The ascetic furnishing and lack of ornaments give an impression of efficiency.")
     if room == 'office':
         return str("\nYou enter the office.\nThere's a nice view from the windows, a large wooden desk and an executive sized "
                    "leather chair behind it and two not-so-comfortable\nlooking chairs in front of the desk. "
@@ -179,15 +183,22 @@ def look(db, object):
     cursor.execute("select location from player")
     room = cursor.fetchone()[0]
     if room == 6 and object == 'cabinet':
-        return str("There is only a single bottle of whiskey left in the cabinet.\n")
+        cursor=db.cursor()
+        cursor.execute("select location from item where item.location in (select location from player)")
+        item = cursor.fetchone()[0]
+        if item == 6:
+            return str("There is only a single bottle of whiskey left in the cabinet.\n")
+
     elif room == 12 and object == 'table':
         return str("There is a strange and very old looking book on the table.\n")
-    elif room == 12 and object == 'book':
+
+    elif room == 12 and object in ('book', 'spellbook'):
         return str("The book is open at a section written in a strange looking language unknown to you.\n"
                    "The words 'NULLI INCANTA DEMONOS' in big letters at the bottom of the page strike your attention.\n")
-    elif room == 10 and object == 'corpse':
+
+    elif room == 10 and object in ('corpse', 'lord', 'chadwick'):
         return str("The corpse lies on the bed totally rigid. You notice no signs of violence.\n"
-                  "The expression on his face gives the impression of one scared to death.\n")
+                   "The expression on his face gives the impression of one scared to death.\n")
+
     else:
         return str("You notice nothing of particular interest.")
-#pitäisi toimia kunnolla
