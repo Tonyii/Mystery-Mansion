@@ -33,6 +33,12 @@ def player_input(command):
         elif verb in oma_funktiot.known_looks:
             print(oma_funktiot.look(db, noun))
 
+        elif verb in oma_funktiot.known_takes:
+            print(oma_funktiot.take(db, noun))
+        elif verb in oma_funktiot.known_helps:
+
+            print(oma_funktiot.inventory(db))
+
         else:
             print("You try to", command, "without significant result.")
 
