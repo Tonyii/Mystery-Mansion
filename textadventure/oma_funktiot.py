@@ -111,7 +111,7 @@ def conversation(db, suspect):
     elif trust == 2 :
         if personid == 1:
             answer = str("\" I heard her, miss Penelope. In the attic. She did some weird things! *hiccup* I went to war\n "
-                     "and I never heard anything as scary like that.  \"")
+                     "and I never heard anything as scary as that.  \"")
             return answer
 
 
