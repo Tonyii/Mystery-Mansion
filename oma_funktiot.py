@@ -192,3 +192,7 @@ def look(db, object):
     else:
         return str("You notice nothing of particular interest.")
 #pitäisi toimia kunnolla
+
+def take(db, object):
+    cursor=db.cursor()
+    cursor.execute("select location from object")
