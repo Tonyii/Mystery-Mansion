@@ -74,12 +74,9 @@ def conversation(db, suspect):
     person = cursor.fetchone()
 
     if person is not None:
-        print("person is not none")
         personid = person[0]
         trust = person[1]
 
-    print("trust is", trust)
-    print("person is", personid)
     if trust == 1:
         #WILLY
         if personid == 1:

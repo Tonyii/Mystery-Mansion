@@ -3,6 +3,7 @@ import mysql.connector
 import oma_funktiot
 import getpass
 
+#asd
 hostname = 'localhost'
 uname = 'player'
 pswd = 'mm'
