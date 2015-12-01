@@ -35,6 +35,7 @@ def player_input(command):
 
         elif verb in oma_funktiot.known_takes:
             print(oma_funktiot.take(db, noun))
+
         elif verb in oma_funktiot.known_helps:
 
             print(oma_funktiot.inventory(db))
