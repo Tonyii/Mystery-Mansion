@@ -1,5 +1,5 @@
 #Eetu Kaivola
-
+#testausta
 # -*- coding: utf-8 -*-
 import oma_funktiot
 import mysql.connector
