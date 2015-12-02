@@ -119,29 +119,28 @@ def conversation(db, suspect):
 def location(room):
     if room == 'guestroom':
         return str("\nYou are in the mansion's guest bedroom.\nThe walls are painted light yellow and there is a "
-                   "painting of a man with a firm look on his face. \nThe bed you slept in is not made and "
-                   "there is an empty champagne glass on the night table. \nYou get the chills from this room "
+                   "painting of a man with a firm look on his face.\nThe bed you slept in is not made and "
+                   "there is an empty champagne glass on the night table.\nYou get the chills from this room "
                    "now even though it did not seem to matter last night.\n"
                    "There is a single door leading to the corridor.\n")
     if room == 'garage':
-        return str("You enter the groundskeepers garage.\n"
-                   "The door barely opens enough for you to slip in. There are boxes behind the door that haven't been "
-                   "touched \n"
-                   "in ages. Rakes, shovels and picks fill the walls and a moist air mixed with the scent of wood "
-                   "fills \n"
-                   "your lugns. At the end of the room theres a small lamp that glances yellowy light across the "
-                   "room and a workdesk.\n")
+        return str("You enter the groundskeeper's garage.\n"
+                   "The door barely opens enough for you to slip in.\nThere are boxes behind the door that haven't been "
+                   "touched in ages.\nRakes, shovels and picks fill the walls and a moist air mixed with the scent of wood "
+                   "fills your lugns.\nAt the end of the room there's a small lamp that glances yellowy light across the "
+                   "room and a workdesk.\nThe only door in the roomm leads back to the corridor.\n")
     if room == 'corridor':
         return str("You look across a long corridor.\n"
-                   "The patterns on the wallpaper run through the corridor. Few seemingly old maple wood sideboards with \n"
-                   "golden finishing and red silken veils on the walls resemble just how wealthy the residents living\n"
-                   "here are. There are paintings of noble men lined up on the walls and you feel a quiet breeze coming\n"
-                   "from the window.\n"
+                   "The patterns on the wallpaper run through the corridor.\nFew seemingly old maple wood sideboards with "
+                   "golden finishing and red silken veils on the walls resemble just how wealthy the residents are.\n"
+                   "There are paintings of noble men lined up on the walls and you feel a quiet breeze coming from the window.\n"
                    "The corridor's five doors lead to the guestroom, maidroom, the kitchen, office, and the garage.\n"
-                   "At the end of the corridor ascends the stairs leading to the second floor ballroom.\n")
+                   "At the end of the corridor ascend the stairs leading to the second floor ballroom.\n")
     if room == 'maidroom':
         return str("You enter the Maid's Chamber.\n"
-                   "The ascetic furnishing and lack of ornaments give an impression of efficiency.")
+                   "The ascetic furnishing and lack of ornaments give an impression of efficiency.\n"
+                   "The bed though seems to have been made in a hurry. The pillow for instance is halfway exposed.\n"
+                   "The only door out of the room leads back to the corridor.\n")
     if room == 'office':
         return str("\nYou enter the office.\nThere's a nice view from the windows, a large wooden desk and an executive sized "
                    "leather chair behind it and two not-so-comfortable\nlooking chairs in front of the desk. "
@@ -194,31 +193,90 @@ def check_command (db, cmd):
     else:
         result = "dance"
     return result
-
-
+#look-funktio tilpehööreineen
+#item kuvauksia:
+pagedesc = str("The page is from a book written in a strange language unknown to you.\n"
+                       "There is a crude illustration of what looks like a whirlpool spinning above a crowd of robe-clad men.\n")
+whiskdesc = str("Eetu kirjottaa tähän hienon viskikuvauksen\n")
+bookdesc = str("The book, written in a strange language unknown to you, seems to have been mostly open at a same certain section.\n"
+                   "The words 'NULLI INCANTA DEMONOS' in big letters at the end of this section strike your attention.\n")
+#itse funktio
 def look(db, object):
     cursor=db.cursor()
     cursor.execute("select location from player")
     room = cursor.fetchone()[0]
+
     if room == 6 and object == 'cabinet':
-        cursor=db.cursor()
-        cursor.execute("select location from item where item.location in (select location from player)")
+        cursor.execute("select location from item where item.location=6")
         item = cursor.fetchone()
         if item is not None:
             return str("There is only a single bottle of whiskey left in the cabinet.\n")
         else:
-            return str("You notice nothing of particular interest.")
-    elif room == 12 and object == 'table':
-        return str("There is a strange and very old looking book on the table.\n")
+            return str("The liquor cabinet is now empty.\n")
 
+    elif room == 6 and object in('whiskey','bottle','whisky'):
+        cursor.execute("select location from item where item.location=6")
+        item = cursor.fetchone()
+        if item is not None:
+            return whiskdesc
+        else:
+            return whiskdesc
+
+    elif room == 12 and object == 'table':
+        cursor.execute("select location from item where item.location=12")
+        item = cursor.fetchone()
+        if item is not None:
+            return str("There is a strange and very old looking book on the table.\n")
+        else:
+            return str("The table is just a table. A few candle stubs on it, nothing more.\n")
     elif room == 12 and object in ('book', 'spellbook'):
-        return str("The book is open at a section written in a strange looking language unknown to you.\n"
-                   "The words 'NULLI INCANTA DEMONOS' in big letters at the bottom of the page strike your attention.\n")
+        return bookdesc
 
     elif room == 10 and object in ('corpse', 'lord', 'chadwick'):
         return str("The corpse lies on the bed totally rigid. You notice no signs of violence.\n"
                    "The expression on his face gives the impression of one scared to death.\n")
 
+    elif room == 4 and object in ('pillow', 'bed'):
+        cursor.execute("select location from item where item.location=4")
+        item = cursor.fetchone()
+        if item is not None:
+            return str("You notice a crumbled piece of paper stashed obviously in a hurry under the pillow.\n"
+                   "It looks like a page torn from a book.\n")
+        else:
+            return str("The bed is just as it seems.")
+    elif room == 4 and object in ('page', 'paper'):
+        cursor.execute("select location from item where item.location=4")
+        item = cursor.fetchone()
+        if item is not None:
+            return str("The paper has been crumbled and stashed under the pillow.\n"
+                       "It's impossible to make out any of it's content from this angle.\n")
+        else:
+            return pagedesc
+#inventaariossa olevien tavaroiden tutkimiseen:
+    elif room is not None and object in ('page', 'paper'):
+        cursor.execute("select itemID from item where location=13")
+        item = cursor.fetchall()
+        if (2,) in item:
+            return pagedesc
+        else:
+            return str("You notice no such thing.")
+
+    elif room is not None and object in ('whisky', 'whiskey', 'bottle'):
+        cursor.execute("select itemID from item where location=13")
+        item = cursor.fetchall()
+        if (1,) in item:
+            return whiskdesc
+        else:
+            return str("You notice no such thing.")
+
+    elif room is not None and object in ('book', 'spellbook'):
+        cursor.execute("select itemID from item where location=13")
+        item = cursor.fetchall()
+        if (5,) in item:
+            return bookdesc
+        else:
+            return str("No interesting books around here.\n")
+#ja vielä koko p****n lopullinen else
     else:
         return str("You notice nothing of particular interest.")
 #pitäisi toimia kunnolla
@@ -241,14 +299,14 @@ def take(db, object):
     cursor=db.cursor()
     cursor.execute("select location from player")
     room = cursor.fetchone()[0]
-    if room == 6 and object == 'whiskey':
+    if room == 6 and object in ('whiskey','bottle','whisky'):
         cursor.execute("update item set location = 13 where itemid = 1")
         return str("You pick up the bottle of whiskey and think, \"That will loosen up my suspects a bit..\"")
-    elif room == 4 and object == 'page':
+    elif room == 4 and object in ('page','paper'):
         cursor.execute("update item set location = 13 where itemid = 2")
-        return str("You pick up torn page from the floor. \"I wonder what this is?\"")
-    elif room == 12 and object == 'spellbook':
-        cursor.exevute("update item set location = 13 where itemid = 5")
+        return str("You pick up and unfold the torn page. \"I wonder what this is?\"")
+    elif room == 12 and object in ('book', 'spellbook'):
+        cursor.execute("update item set location = 13 where itemid = 5")
         return str("You pick up the spellbook and notice that a page is missing. \" Hmmm there are pages missing..\n")
 
 def inventory(db):
