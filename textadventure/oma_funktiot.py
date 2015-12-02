@@ -268,9 +268,13 @@ def inventory(db):
 
 def info(db):
     cursor=db.cursor()
-    cursor.execute("SELECT location FROM player UNION ALL select description FROM item WHERE item.location in (select location from player) UNION ALL select description FROM npc WHERE npc.location in (select location from player)")
-    infolist = cursor.fetchall()
+    cursor.execute("select player.location, item.description, npc.description from player left outer join item on (item.location = player.location) left outer join npc on (npc.location = player.location)")
+    infolist = cursor.fetchone()
     if infolist is not None:
-        return str("location / items / npc\n") + str(infolist)
+        location = infolist[0]
+        items = infolist[1]
+        npc = infolist[2]
+        info = "Location: " + str(location) + "\nitems: " + str(items) + "\nnpc:s " + str(npc)
+        return info
     else:
         return str("info ei toimi")
