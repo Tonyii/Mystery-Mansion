@@ -166,7 +166,8 @@ def location(room):
                    "The large dancing area is empty. A few chairs are located next to the walls. In daylight this looks "
                    "like a not so welcoming place to spend time.\n"
                    "From the ballroom open doors to the Master bedroom, the study, and the Lord's bathroom.\n"
-                   "The stairs leading to the 1st floor corridor descend from the corner.\n")
+                   "The stairs leading to the 1st floor corridor descend from the corner.\n"
+                   "There's also a pull down ladder leading to the attic here.\n")
     if room == 'bathroom':
         return str("You are in Lord Chadwick personal bathroom.\n"
                    "Apart from the usual toilet seat, mirror cabinet, ceramic sink, and a couple of towels hanging on the wall,\n"
@@ -190,7 +191,8 @@ def location(room):
         return str("You are in the attic of the Mansion.\n"
                    "The atmosphere is very musty, and you can see many cobwebs hanging from the beams supporting the roof.\n"
                    "The light is dim, but you can make out heeps of cardboard boxes along the walls.\n"
-                   "A little light from a small window on the western end of the room reveals a small table with a chair.\n")
+                   "A little light from a small window on the western end of the room reveals a small table with a chair.\n"
+                   "The only way out is back down the ladder to the ballroom.\n")
 
 
 def check_command (db, cmd):
@@ -331,7 +333,7 @@ def take(db, object):
 
         elif playerroom == 12 and itemroom == 12 and object == 'book':
             cursor.exevute("update item set location = 13 where itemid = 5")
-            return str("You pick up the spellbook and notice that a page is missing. \" Hmmm there are pages missing..\n")
+            return str("You pick up the spellbook and notice that a page is missing. \" Hmmm there are pages missing..\"\n")
     else:
         return str("There seems to be no such object nearby.")
 
