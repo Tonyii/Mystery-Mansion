@@ -17,7 +17,7 @@ known_takes=['take', 'lift', 'pick', 'get', 'grab']
 #talks sql:ssa
 known_talks=['talk', 'ask', 'interrogate', 'interview', 'speak', 'tell']
 known_opens=['open', 'close']
-known_helps=['inventory', 'help', 'map']
+known_helps=['inventory', 'help', 'map', 'info']
 known_commands= []
 known_commands.extend(known_moves)
 known_commands.extend(known_talks)
@@ -25,6 +25,7 @@ known_commands.extend(known_takes)
 known_commands.extend(known_helps)
 known_commands.extend(known_opens)
 known_commands.extend(known_looks)
+
 known_rooms=['guestroom', 'garage', 'corridor', 'maidroom', 'office', 'kitchen', 'stairs', 'ballroom',
                 'bathroom', 'bedroom', 'study', 'attic']
 #people sql:s
@@ -86,32 +87,32 @@ def conversation(db, suspect):
 
             return answer
         #CHEF
-        elif suspect == 3:
+        elif personid == 3:
             answer = str("Chef angrily stops what he is doing and turns to you. \"What do you want?\n"
                          "My job is to cook food and not to answer questions! Go away, I am trying to work!"
                          "Go talk to Willy, if there is something to know he knows.\"\n")
             return answer
         #MAID
-        elif suspect == 2:
+        elif personid == 2:
             answer = str("\"What a horrible thing to happen! I think I must find a new job... \nI guess this"
                          " wasn't a success for me.\" ")
             return answer
         #BUTLER
-        elif suspect == 4:
+        elif personid == 4:
             answer = str("\"Oh how horrible act of violence this is! My dear master and friend is gone!\n"
                          "Terrible night, I slept like a log after catering your marvelous party. What a "
                          "shame.\nI hope that police arrives shortly and we can put the monster behind bars!\"\n")
             return answer
         #SONYA
-        elif suspect == 5:
+        elif personid == 5:
             answer = str("\"Bohoo! My love is gone! Go away you idiot! Can't you see that I am in grief."
                          "I have nothing to say to you. Leave me alone! \"")
             return answer
 
     elif trust == 2 :
-        if suspect == 1:
+        if personid == 1:
             answer = str("\" I heard her, miss Penelope. In the attic. She did some weird things! *hiccup* I went to war\n "
-                     "and I never heard anything as scary like that.  \"")
+                     "and I never heard anything as scary as that.  \"")
             return answer
 
 
@@ -301,20 +302,41 @@ def check_noun (db, noun):
 
 def take(db, object):
     cursor=db.cursor()
-    cursor.execute("select location from player")
-    room = cursor.fetchone()[0]
-    if room == 6 and object in ('whiskey','bottle','whisky'):
-        cursor.execute("update item set location = 13 where itemid = 1")
-        return str("You pick up the bottle of whiskey and think, \"That will loosen up my suspects a bit..\"")
-    elif room == 4 and object in ('page','paper'):
-        cursor.execute("update item set location = 13 where itemid = 2")
-        return str("You pick up and unfold the torn page. \"I wonder what this is?\"")
-    elif room == 12 and object in ('book', 'spellbook'):
-        cursor.execute("update item set location = 13 where itemid = 5")
-        return str("You pick up the spellbook and notice that a page is missing. \" Hmmm there are pages missing..\n")
+    cursor.execute("select player.location, item.location from player, item where player.location = item.location")
+    rooms = cursor.fetchone()
+    if rooms is not None:
+        playerroom = rooms[0]
+        itemroom = rooms[1]
+
+        if playerroom == 6 and itemroom == 6 and object == 'whiskey':
+            cursor.execute("update item set location = 13 where itemid = 1")
+            return str("You pick up the bottle of whiskey and think, \"That will loosen up my suspects a bit..\"")
+
+        elif playerroom == 4 and itemroom == 4 and object == 'page':
+            cursor.execute("update item set location = 13 where itemid = 2")
+            return str("You pick up and unfold the torn page. \"I wonder what this is?\"")
+
+        elif playerroom == 12 and itemroom == 12 and object == 'book':
+            cursor.exevute("update item set location = 13 where itemid = 5")
+            return str("You pick up the spellbook and notice that a page is missing. \" Hmmm there are pages missing..\n")
+    else:
+        return str("There seems to be no such object nearby.")
 
 def inventory(db):
     cursor=db.cursor()
     cursor.execute("select item.description from item where item.location = 13")
     inv=cursor.fetchall()
     return inv
+
+def info(db):
+    cursor=db.cursor()
+    cursor.execute("select player.location, item.description, npc.description from player left outer join item on (item.location = player.location) left outer join npc on (npc.location = player.location)")
+    infolist = cursor.fetchone()
+    if infolist is not None:
+        location = infolist[0]
+        items = infolist[1]
+        npc = infolist[2]
+        info = "Location: " + str(location) + "\nitems: " + str(items) + "\nnpc:s " + str(npc)
+        return info
+    else:
+        return str("info ei toimi")

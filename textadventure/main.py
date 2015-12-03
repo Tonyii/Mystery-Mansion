@@ -34,15 +34,17 @@ def player_input(command):
         elif checkedverb == 'talk' and checkednoun == 'person':
             print(oma_funktiot.conversation(db, noun))
 
-        elif checkedverb in oma_funktiot.known_looks:
+        elif checkedverb == 'look':
             print(oma_funktiot.look(db, checkednoun))
 
-        elif verb in oma_funktiot.known_takes:
+        elif checkedverb == 'take':
             print(oma_funktiot.take(db, noun))
 
         elif verb in oma_funktiot.known_helps:
-
-            print(oma_funktiot.inventory(db))
+            if verb == 'info':
+                print(oma_funktiot.info(db))
+            if verb == 'inventory':
+                print(oma_funktiot.inventory(db))
 
         else:
             print("You try to", command, "without significant result.")
