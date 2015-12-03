@@ -206,7 +206,11 @@ def look(db, object):
     cursor.execute("select location from player")
     room = cursor.fetchone()[0]
 
-    if room == 6 and object == 'cabinet':
+    if room is not None and object in ('around', 'room'):
+        room = (room_desc(db))
+        return location(room)
+
+    elif room == 6 and object == 'cabinet':
         cursor.execute("select location from item where item.location=6")
         item = cursor.fetchone()
         if item is not None:
