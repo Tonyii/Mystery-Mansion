@@ -89,7 +89,7 @@ def conversation(db, suspect):
         #CHEF
         elif personid == 3:
             answer = str("Chef angrily stops what he is doing and turns to you. \"What do you want?\n"
-                         "My job is to cook food and not to answer questions! Go away, I am trying to work!"
+                         "My job is to cook food and not to answer questions! Go away, I am trying to work! "
                          "Go talk to Willy, if there is something to know he knows.\"\n")
             return answer
         #MAID
@@ -111,7 +111,7 @@ def conversation(db, suspect):
 
     elif trust == 2 :
         if personid == 1:
-            answer = str("\" I heard her, miss Penelope. In the attic. She did some weird things! *hiccup* I went to war\n "
+            answer = str("\"I heard her, miss Penelope. In the attic. She did some weird things! *hiccup* I went to war\n"
                      "and I never heard anything as scary as that.  \"")
             return answer
 
@@ -119,7 +119,7 @@ def conversation(db, suspect):
 
 def location(room):
     if room == 'guestroom':
-        return str("\nYou are in the mansion's guest bedroom.\nThe walls are painted light yellow and there is a "
+        return str("\nYou are in the Mansion's guest bedroom.\nThe walls are painted light yellow and there is a "
                    "painting of a man with a firm look on his face.\nThe bed you slept in is not made and "
                    "there is an empty champagne glass on the night table.\nYou get the chills from this room "
                    "now even though it did not seem to matter last night.\n"
@@ -138,7 +138,7 @@ def location(room):
                    "The corridor's five doors lead to the guestroom, maidroom, the kitchen, office, and the garage.\n"
                    "At the end of the corridor ascend the stairs leading to the second floor ballroom.\n")
     if room == 'maidroom':
-        return str("You enter the Maid's Chamber.\n"
+        return str("You enter the maid's chamber.\n"
                    "The ascetic furnishing and lack of ornaments give an impression of efficiency.\n"
                    "The bed though seems to have been made in a hurry. The pillow for instance is halfway exposed.\n"
                    "The only door out of the room leads back to the corridor.\n")
@@ -156,7 +156,7 @@ def location(room):
                    "you think.\nNo sign of him noticing you are in the room.\n"
                    "The door leading back to the corridor is the only way out of the room.\n")
     if room == 'stairs':
-        return str("\nYou arrive at the stairs.\n'Thank god they are wide' you think remembering last night's fumbles "
+        return str("\nYou arrive at the stairs.\n\"Thank god they are wide\" you think remembering last night's fumbles "
                    "downstairs.\nOtherwise it is just a staircase. Nothing of interest in here.\n"
                    "Just go up to the ballroom or down to the 1st floor corridor.\n")
     if room == 'ballroom':
@@ -209,7 +209,7 @@ def check_command (db, cmd):
 #look-funktio tilpehööreineen
 #item kuvauksia:
 pagedesc = str("The page is from a book written in a strange language unknown to you.\n"
-                       "There is a crude illustration of what looks like a whirlpool spinning above a crowd of robe-clad men.\n")
+                       "There is a crude illustration of what looks like a maelstrom spinning above a crowd of robe-clad men.\n")
 whiskdesc = str("Eetu kirjottaa tähän hienon viskikuvauksen\n")
 bookdesc = str("The book, written in a strange language unknown to you, seems to have been mostly open at a same certain section.\n"
                    "The words 'NULLI INCANTA DEMONOS' in big letters at the end of this section strike your attention.\n")
@@ -369,7 +369,7 @@ def give(db, item):
             if playerroom == 2 and item == 'whiskey':
                 cursor.execute("update item set location = null where itemid = 1")
                 cursor.execute("update npc set trust = 2 where npcid = 1")
-                return str("You gave Willy the bottle of whiskey. \n\"OH! Papas here! My darling!\" *followed by unadhesive irish mumble*")
+                return str("You gave Willy the bottle of whiskey. \n\"OH! Papa's here! My darling!\" *followed by unadhesive irish mumble*")
             else:
                 return str("There's no one in this room who'd want that.")
         else:
