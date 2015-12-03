@@ -59,10 +59,10 @@ def people(db):
     rows = cursor.fetchone()
     if rows is not None:
         rperson = rows[0]
-        return_person = str(rperson + " is in the room.\n")
+        return_person = str(rperson + " is in the room.")
 
     else:
-        return_person = "There's no one beside you in the room.\n"
+        return_person = "There's no one beside you in the room."
 
     return return_person
 
@@ -202,9 +202,10 @@ def check_command (db, cmd):
     results = cursor.fetchone()
     if results is not None:
         result = results[0]
+        return result
     else:
-        result = "dance"
-    return result
+        return cmd
+
 #look-funktio tilpehööreineen
 #item kuvauksia:
 pagedesc = str("The page is from a book written in a strange language unknown to you.\n"
@@ -356,3 +357,22 @@ def info(db):
         return info
     else:
         return str("info ei toimi")
+
+def give(db, item):
+    cursor = db.cursor()
+    cursor.execute("select player.location, item.location from player left outer join item on (item.location = 13)")
+    infos = cursor.fetchone()
+    if infos is not None:
+        playerroom = infos[0]
+        itemplace = infos[1]
+        if itemplace == 13:
+            if playerroom == 2 and item == 'whiskey':
+                cursor.execute("update item set location = null where itemid = 1")
+                cursor.execute("update npc set trust = 2 where npcid = 1")
+                return str("You gave Willy the bottle of whiskey. \n\"OH! Papas here! My darling!\" *followed by unadhesive irish mumble*")
+            else:
+                return str("There's no one in this room who'd want that.")
+        else:
+            return str("You have nothing to give.")
+    else:
+        return str("You have nothing to give.")
