@@ -61,5 +61,6 @@ insert into Synocmd values ("look", "look"),("look", "inspect"),("look","examine
 insert into Synocmd values ("take", "take"),("take","lift"), ("take","pick"), ("take","get"), ("take","grab");
 insert into Synocmd values ("room","questroom"),("room","garage"),("room","corridor"),("room","maidroom"),("room","office"),("room","kitchen"),("room","stairs"),("room","ballroom"),("room","bathroom"),("room","bedroom"),("room","study"),("room","attic");
 insert into Synocmd values ("person","butler"),("person","jeeves"),("person","jeeves the butler"),("person", "willy"),("person","groundskeeper"),("person","willie"),("person","maid"),("person","penelope"),("person","gordon"),("person","chef"),("person","sonya"),("person","lady"),("person","mistress");
-insert into Synocmd values ("whiskey","whiskey"),("whiskey","bottle"),("whiskey","whisky"),("page","page"),("page","paper");
+insert into Synocmd values ("whiskey","whiskey"),("whiskey","bottle"),("whiskey","whisky"),("page","page"),("page","paper"),("book","book"),("book","spellbook"),("lord","chadwick"),("lord","corpse"),("bed","pillow");
+
 insert into SynoPerson values (4,"butler"),(4,"jeeves"),(4,"jeeves the butler"),(1, "willy"),(1,"groundskeeper"),(1,"willie"),(2,"maid"),(2,"penelope"),(3,"gordon"),(3,"chef"),(5,"sonya"),(5,"lady"),(5,"mistress");
