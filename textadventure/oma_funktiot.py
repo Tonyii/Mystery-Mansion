@@ -219,7 +219,7 @@ def look(db, object):
         else:
             return str("The liquor cabinet is now empty.\n")
 
-    elif room == 6 and object in('whiskey','bottle','whisky'):
+    elif room == 6 and object == 'whiskey':
         cursor.execute("select location from item where item.location=6")
         item = cursor.fetchone()
         if item is not None:
@@ -234,14 +234,14 @@ def look(db, object):
             return str("There is a strange and very old looking book on the table.\n")
         else:
             return str("The table is just a table. A few candle stubs on it, nothing more.\n")
-    elif room == 12 and object in ('book', 'spellbook'):
+    elif room == 12 and object == 'book':
         return bookdesc
 
-    elif room == 10 and object in ('corpse', 'lord', 'chadwick'):
+    elif room == 10 and object == 'lord':
         return str("The corpse lies on the bed totally rigid. You notice no signs of violence.\n"
                    "The expression on his face gives the impression of one scared to death.\n")
 
-    elif room == 4 and object in ('pillow', 'bed'):
+    elif room == 4 and object == 'bed':
         cursor.execute("select location from item where item.location=4")
         item = cursor.fetchone()
         if item is not None:
@@ -249,7 +249,7 @@ def look(db, object):
                    "It looks like a page torn from a book.\n")
         else:
             return str("The bed is just as it seems.")
-    elif room == 4 and object in ('page', 'paper'):
+    elif room == 4 and object == 'page':
         cursor.execute("select location from item where item.location=4")
         item = cursor.fetchone()
         if item is not None:
@@ -258,15 +258,16 @@ def look(db, object):
         else:
             return pagedesc
 #inventaariossa olevien tavaroiden tutkimiseen:
-    elif room is not None and object in ('page', 'paper'):
-        cursor.execute("select itemID from item where location=13")
+    elif room is not None and object == 'page':
+        cursor.execute("select itemID from item where location = 13 and itemID = 2")
+        #cursor.execute("select itemID from item where location=13")
         item = cursor.fetchall()
         if (2,) in item:
             return pagedesc
         else:
             return str("You notice no such thing.")
 
-    elif room is not None and object in ('whisky', 'whiskey', 'bottle'):
+    elif room is not None and object == 'whiskey':
         cursor.execute("select itemID from item where location=13")
         item = cursor.fetchall()
         if (1,) in item:
@@ -274,7 +275,7 @@ def look(db, object):
         else:
             return str("You notice no such thing.")
 
-    elif room is not None and object in ('book', 'spellbook'):
+    elif room is not None and object == 'book':
         cursor.execute("select itemID from item where location=13")
         item = cursor.fetchall()
         if (5,) in item:
@@ -330,13 +331,14 @@ def inventory(db):
 
 def info(db):
     cursor=db.cursor()
-    cursor.execute("select player.location, item.description, npc.description from player left outer join item on (item.location = player.location) left outer join npc on (npc.location = player.location)")
+    cursor.execute("select player.location, item.description, npc.description, room.description from player left outer join item on (item.location = player.location) left outer join npc on (npc.location = player.location) left outer join room on (room.roomid = player.location)")
     infolist = cursor.fetchone()
     if infolist is not None:
         location = infolist[0]
         items = infolist[1]
         npc = infolist[2]
-        info = "Location: " + str(location) + "\nitems: " + str(items) + "\nnpc:s " + str(npc)
+        roomdesc = infolist[3]
+        info = "Location: " + str(location) + " - " + roomdesc + "\nitems: " + str(items) + "\nnpc:s " + str(npc)
         return info
     else:
         return str("info ei toimi")
