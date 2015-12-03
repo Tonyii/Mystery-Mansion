@@ -267,6 +267,7 @@ def look(db, object):
         else:
             return pagedesc
     elif room == 11 and object 'bookshelf':
+
 #inventaariossa olevien tavaroiden tutkimiseen:
     elif room is not None and object in ('page', 'paper'):
         cursor.execute("select itemID from item where location=13")
