@@ -129,7 +129,7 @@ def location(room):
                    "The door barely opens enough for you to slip in.\nThere are boxes behind the door that haven't been "
                    "touched in ages.\nRakes, shovels and picks fill the walls and a moist air mixed with the scent of wood "
                    "fills your lugns.\nAt the end of the room there's a small lamp that glances yellowy light across the "
-                   "room and a workdesk.\nThe only door in the roomm leads back to the corridor.\n")
+                   "room and a workdesk.\nThe only door in the room leads back to the corridor.\n")
     if room == 'corridor':
         return str("You look across a long corridor.\n"
                    "The patterns on the wallpaper run through the corridor.\nFew seemingly old maple wood sideboards with "
@@ -146,37 +146,46 @@ def location(room):
         return str("\nYou enter the office.\nThere's a nice view from the windows, a large wooden desk and an executive sized "
                    "leather chair behind it and two not-so-comfortable\nlooking chairs in front of the desk. "
                    "Wouldn't want to work here, you think. The desk is neatly\norganized: pencil holder, phone, "
-                   "calendar, phone book. Nothing out of the ordinary on your first glance.\n ")
+                   "calendar, phone book. Nothing out of the ordinary on your first glance.\n"
+                   "The corridor is the only way out of the room.\n")
     if room == 'kitchen':
         return str("\nYou walk into the kitchen.\nFirst thing that you notice is that the chef has to be a superior "
                    "being. The kitchen is straight from the 18th century.\nWell, at least there is enough room "
                    "for a fridge, liquor cabinet, baking oven and shelves for pans,\npots and other cutlery. The Chef "
                    "himself is leaning over the sink apparently working on lunch. He is not easily distracted "
-                   "you think.\nNo sign of him noticing you are in the room.\n")
+                   "you think.\nNo sign of him noticing you are in the room.\n"
+                   "The door leading back to the corridor is the only way out of the room.\n")
     if room == 'stairs':
-        return str("\nYou arrive at the stairs.\nThank god they are wide you think remembering last nights fumbles "
-                   "downstairs. Otherwise it is just a staircase. Nothing of interest in here.\nJust go up or down.\n")
+        return str("\nYou arrive at the stairs.\n'Thank god they are wide' you think remembering last night's fumbles "
+                   "downstairs.\nOtherwise it is just a staircase. Nothing of interest in here.\n"
+                   "Just go up to the ballroom or down to the 1st floor corridor.\n")
     if room == 'ballroom':
         return str("You are in the ballroom.\nNot so stylish in bright daylight you think. Scarlet drapes are faded "
-                   "from sunlight and the long table just looks sad and old.\nEspecially now when last nights dinner "
-                   "is only partially cleaned up. Food and drinks are gone but there are still\nplates and glasses. "
+                   "from sunlight and the long table just looks sad and old.\nEspecially now when last night's dinner "
+                   "is only partially cleaned up.\nFood and drinks are gone but there are still plates and glasses on the table.\n"
                    "The large dancing area is empty. A few chairs are located next to the walls. In daylight this looks "
-                   "like a not so welcoming place to spend time.\n")
+                   "like a not so welcoming place to spend time.\n"
+                   "From the ballroom open doors to the Master bedroom, the study, and the Lord's bathroom.\n"
+                   "The stairs leading to the 1st floor corridor descend from the corner.\n")
     if room == 'bathroom':
-        return str("You are in the bathroom. \n"
+        return str("You are in Lord Chadwick personal bathroom.\n"
                    "Apart from the usual toilet seat, mirror cabinet, ceramic sink, and a couple of towels hanging on the wall,\n"
-                   "you notice hardly anything worth your attention. \n"
+                   "you notice hardly anything worth your attention.\n"
                    "There is however, a surprisingly large amount of shaving scum splattered around the sink.\n"
-                   "Well, maybe somebody was busy with something more important than cleaning last night.\n")
+                   "Well, maybe somebody was busy with something more important than cleaning last night.\n"
+                   "There are doors leading to the ballroom and the study.\n")
     if room == 'master bedroom':
-        return str("You are in the Mansion's master bedroom.\n"
+        return str("You are in the Mansion's Master bedroom.\n"
                    "The late Lord's corpse is still lying on the bed. Hair white, eyes wide open, and arms stiffly grasping the air.\n"
-                   "What could've caused a man such and eerie ending? You feel a sense of duty that beckons you to get to the bottom of this!\n")
+                   "What could've caused a man such and eerie ending?\n"
+                   "Looking at the remains of your late friend you feel a sense of duty that beckons you to get to the bottom of this!\n"
+                   "From the bedroom it is possibly to enter the study or ballroom.\n")
     if room == 'study':
-        return str("You are in Lord Chadwick's personal study.\n"
+        return str("You are in Lord Chadwick's study.\n"
                    "There's a desk neatly organized by the window, a comfortable chair positioned under a reading lamp on one corner,\n"
                    "and a giant bookshelf filled with volumes gracing the wall.\n"
-                   "You smell the dank cigarette smoke of countless hours spent among the books here.\n")
+                   "You smell the dank cigarette smoke of countless hours spent among the books here.\n"
+                   "There are 3 doors leading to the bathroom, the bedroom, and to the ballroom.\n")
     if room == 'attic':
         return str("You are in the attic of the Mansion.\n"
                    "The atmosphere is very musty, and you can see many cobwebs hanging from the beams supporting the roof.\n"
@@ -249,7 +258,8 @@ def look(db, object):
                    "It looks like a page torn from a book.\n")
         else:
             return str("The bed is just as it seems.")
-    elif room == 4 and object in ('page', 'paper'):
+
+    elif room == 4 and object = 'page':
         cursor.execute("select location from item where item.location=4")
         item = cursor.fetchone()
         if item is not None:
@@ -257,6 +267,7 @@ def look(db, object):
                        "It's impossible to make out any of it's content from this angle.\n")
         else:
             return pagedesc
+    elif room == 11 and object 'bookshelf':
 #inventaariossa olevien tavaroiden tutkimiseen:
     elif room is not None and object in ('page', 'paper'):
         cursor.execute("select itemID from item where location=13")

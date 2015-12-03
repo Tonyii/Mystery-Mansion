@@ -38,7 +38,7 @@ def player_input(command):
             print(oma_funktiot.look(db, checkednoun))
 
         elif checkedverb == 'take':
-            print(oma_funktiot.take(db, noun))
+            print(oma_funktiot.take(db, checkednoun))
 
         elif verb in oma_funktiot.known_helps:
             if verb == 'info':
