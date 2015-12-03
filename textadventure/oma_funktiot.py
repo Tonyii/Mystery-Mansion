@@ -266,7 +266,9 @@ def look(db, object):
                        "It's impossible to make out any of it's content from this angle.\n")
         else:
             return pagedesc
-    elif room == 11 and object 'bookshelf':
+    elif room == 11 and object == 'bookshelf':
+        return str("Examining the bookshelf closer you notice that a book is missing.\n"
+                   "Judging by the dust marks it appears to have been removed quite recently.\n")
 
 #inventaariossa olevien tavaroiden tutkimiseen:
     elif room is not None and object in ('page', 'paper'):
