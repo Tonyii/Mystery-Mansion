@@ -69,6 +69,8 @@ story = ("It was a dark and stormy night when Lord Chadwick hosted his party.\nY
       "You have known Lord Chadwick a long time and know his tendency to make enemies easily.\n"
       "Everyone here is a suspect. And it is your job to find out who is behind this horrible act.\n\n"
       "Eventually everyone agrees to wait in the Mansion for the phone lines to be fixed and the police notified.\n")
+
+
 for char in story:
     sys.stdout.write(char)
     sys.stdout.flush()
