@@ -376,3 +376,4 @@ def give(db, item):
             return str("You have nothing to give.")
     else:
         return str("You have nothing to give.")
+#kukkuu
