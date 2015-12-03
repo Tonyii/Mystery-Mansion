@@ -1,3 +1,8 @@
-import oma_funktiot
+import sys
+import time
 
-print(oma_funktiot.known_commands)
+test = "jarker bdlsg nsssg sd msdg"
+for l in test:
+    sys.stdout.write(l)
+    sys.stdout.flush()
+    time.sleep(.03)
