@@ -53,7 +53,7 @@ insert into Room values (1, "guestroom"), (2, "garage"), (3, "corridor"),
 
 insert into Player values (1, 1);
 insert into NPC values (1, "Groundskeeper Willy", 2, 1), (2, "Maid Penelope", 8, 1), (3, "Chef Gordon", 6, 1), (4, "Jeeves the Butler", 5, 1), (5, "Lady Sonya", 10, 1);
-insert into Item values (1, "whiskey", null, 6), (2, "torn page", null, 4), (3, "safe", null, 11), (4, "combination", null, 10), (5, "dark spellbook", null, 12);
+insert into Item values (1, "whiskey", null, 6), (2, "page", null, 4), (3, "safe", null, 11), (4, "combination", null, 10), (5, "book", null, 12);
 
 insert into Synocmd values ("go", "go"), ("go","move"), ("go","exit"),("go","walk"), ("go","travel"), ("go", "climb"), ("go", "crawl"), ("go", "run");
 insert into Synocmd values ("talk", "talk"), ("talk", "ask"), ("talk", "interrogate"), ("talk", "interview"), ("talk", "speak"), ("talk", "tell");

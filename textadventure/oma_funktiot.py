@@ -202,9 +202,10 @@ def check_command (db, cmd):
     results = cursor.fetchone()
     if results is not None:
         result = results[0]
+        return result
     else:
-        result = "dance"
-    return result
+        return cmd
+
 #look-funktio tilpehööreineen
 #item kuvauksia:
 pagedesc = str("The page is from a book written in a strange language unknown to you.\n"
@@ -356,3 +357,23 @@ def info(db):
         return info
     else:
         return str("info ei toimi")
+
+def give(db, item):
+    print("give funktio")
+    cursor = db.cursor()
+    cursor.execute("select player.location, item.location from player left outer join item on (item.location = 13)")
+    infos = cursor.fetchone()
+    if infos is not None:
+        playerroom = infos[0]
+        itemplace = infos[1]
+        if itemplace == 13:
+            if playerroom == 2 and item == 'whiskey':
+                cursor.execute("update item set location = null where itemid = 1")
+                cursor.execute("update npc set trust = 2 where npcid = 1")
+                return str("You gave Willy the bottle of whiskey.")# \"OH! Papas here! My darling!\" *followed by unadhesive irish mumble*")
+            else:
+                return str("ei kaikki toteudu")
+        else:
+            return str("itemplace not 13")
+    else:
+        return str("infos none")

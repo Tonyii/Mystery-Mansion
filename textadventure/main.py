@@ -40,6 +40,10 @@ def player_input(command):
         elif checkedverb == 'take':
             print(oma_funktiot.take(db, checkednoun))
 
+        elif checkedverb == 'give':
+            print("player input give")
+            print(oma_funktiot.give(db, checkednoun))
+
         elif verb in oma_funktiot.known_helps:
             if verb == 'info':
                 print(oma_funktiot.info(db))
