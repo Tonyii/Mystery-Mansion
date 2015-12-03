@@ -69,20 +69,20 @@ story = ("It was a dark and stormy night when Lord Chadwick hosted his party.\nY
       "You have known Lord Chadwick a long time and know his tendency to make enemies easily.\n"
       "Everyone here is a suspect. And it is your job to find out who is behind this horrible act.\n\n"
       "Eventually everyone agrees to wait in the Mansion for the phone lines to be fixed and the police notified.\n")
-
-
-for char in story:
-    sys.stdout.write(char)
-    sys.stdout.flush()
-    time.sleep(.04)
-time.sleep(2)
-input("\nPRESS ENTER TO START")
+intro=input("intro?, no?")
+if intro == "yes":
+    for char in story:
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        time.sleep(.04)
+    time.sleep(2)
+    input("\nPRESS ENTER TO START")
 
 end_game = 0
 show_room_desc = 1
 
 #pelin päälooppi
-while end_game == 0:
+while end_game != 1:
 
     if show_room_desc == 1:
         location = oma_funktiot.room_desc(db)
@@ -93,6 +93,13 @@ while end_game == 0:
     first_input=input("\nWhat do you want to do?\n")
     if first_input != "quit":
         player_input(first_input)
-    else: end_game = 1
 
+    else: end_game = 4
+
+    cursor=db.cursor()
+    cursor.execute("select state from plot")
+    end_game=cursor.fetchone()[0]
+
+while end_game != 2:
+    print("loppuhuipennus!!!!!")
 #herp derp

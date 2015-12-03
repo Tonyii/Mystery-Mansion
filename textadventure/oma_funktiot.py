@@ -3,6 +3,7 @@
 #testataan gittiä
 # -*- coding: utf-8 -*-
 import mysql.connector
+
 #opens connection to database...
 def open_database(hostname, uname, pswd):
     return mysql.connector.connect(
@@ -105,14 +106,15 @@ def conversation(db, suspect):
             return answer
         #SONYA
         elif personid == 5:
-            answer = str("\n\"Bohoo! My love is gone! Go away you idiot! Can't you see that I am in grief."
+            answer = str("\n\"Bohoo! My love is gone! Go away you idiot! Can't you see that I am in grief. "
                          "I have nothing to say to you. Leave me alone! \"")
             return answer
 
     elif trust == 2 :
         if personid == 1:
             answer = str("\n\"I heard her, miss Penelope. In the attic. She did some weird things! *hiccup* I went to war\n"
-                     "and I never heard anything as scary as that.  \"")
+                     "and I never heard anything as scary as that.\"")
+            cursor.execute("update plot set state =1")
             return answer
 
 
@@ -169,7 +171,7 @@ def location(room):
                    "The stairs leading to the 1st floor corridor descend from the corner.\n"
                    "There's also a pull down ladder leading to the attic here.\n")
     if room == 'bathroom':
-        return str("\nYou are in Lord Chadwick personal bathroom.\n"
+        return str("\nYou are in Lord Chadwick's personal bathroom.\n"
                    "Apart from the usual toilet seat, mirror cabinet, ceramic sink, and a couple of towels hanging on the wall,\n"
                    "you notice hardly anything worth your attention.\n"
                    "There is however, a surprisingly large amount of shaving scum splattered around the sink.\n"
@@ -212,7 +214,7 @@ pagedesc = str("\nThe page is from a book written in a strange language unknown 
                        "There is a crude illustration of what looks like a maelstrom spinning above a crowd of robe-clad men.\n")
 whiskdesc = str("\nEetu kirjottaa tähän hienon viskikuvauksen\n")
 bookdesc = str("\nThe book, written in a strange language unknown to you, seems to have been mostly open at a same certain section.\n"
-                   "The words 'NULLI INCANTA DEMONOS' in big letters at the end of this section strike your attention.\n")
+                   "The words 'NULLI INCANTA DEMONUM' in big letters at the end of this section strike your attention.\n")
 #itse funktio
 def look(db, object):
     cursor=db.cursor()
@@ -333,7 +335,7 @@ def take(db, object):
             return str("\nYou pick up and unfold the torn page. \"I wonder what this is?\"")
 
         elif playerroom == 12 and itemroom == 12 and object == 'book':
-            cursor.exevute("update item set location = 13 where itemid = 5")
+            cursor.execute("update item set location = 13 where itemid = 5")
             return str("\nYou pick up the spellbook and notice that a page is missing. \" Hmmm there are pages missing..\"\n")
     else:
         return str("\nThere seems to be no such object nearby.")

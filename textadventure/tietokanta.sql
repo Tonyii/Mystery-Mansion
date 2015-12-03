@@ -47,6 +47,10 @@ create table SynoPerson(
 	Synonyymi varchar(20) not null,
 	primary key (Synonyymi));
 
+create table plot(
+    state int not null,
+    primary key (state));
+
 insert into Room values (1, "guestroom"), (2, "garage"), (3, "corridor"),
 			(4, "maidroom"), (5, "office"), (6, "kitchen"), (7, "stairs"), (8, "ballroom"),
             (9, "bathroom"), (10, "master bedroom"), (11, "study"), (12, "attic"), (13, "inventory");
@@ -64,3 +68,5 @@ insert into Synocmd values ("person","butler"),("person","jeeves"),("person","je
 insert into Synocmd values ("whiskey","whiskey"),("whiskey","bottle"),("whiskey","whisky"),("page","page"),("page","paper"),("book","book"),("book","spellbook"),("lord","chadwick"),("lord","corpse"),("bed","pillow"),("bookshelf","shelf"),("bookshelf","bookcase");
 
 insert into SynoPerson values (4,"butler"),(4,"jeeves"),(4,"jeeves the butler"),(1, "willy"),(1,"groundskeeper"),(1,"willie"),(2,"maid"),(2,"penelope"),(3,"gordon"),(3,"chef"),(5,"sonya"),(5,"lady"),(5,"mistress");
+
+insert into plot values (0);
