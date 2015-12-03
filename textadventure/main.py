@@ -78,11 +78,14 @@ if intro == "yes":
     time.sleep(2)
     input("\nPRESS ENTER TO START")
 
-end_game = 0
+cursor=db.cursor()
+cursor.execute("select * from plot")
+plot = cursor.fetchone()
 show_room_desc = 1
 
 #pelin päälooppi
-while end_game != 1:
+#while plot == (0, 0, 0, 0, 0) or plot == (1, 0, 0, 0, 0) or plot == (1, 1, 0, 0, 0) or plot == (1, 1, 1, 0, 0):
+while plot !=(1, 1, 1, 1, 0) and plot !=(1, 1, 1, 1, 1):
 
     if show_room_desc == 1:
         location = oma_funktiot.room_desc(db)
@@ -94,12 +97,14 @@ while end_game != 1:
     if first_input != "quit":
         player_input(first_input)
 
-    else: end_game = 4
+    else:
+        cursor.execute("update plot set state1=1,state2=1,state3=1,state4=1,state5=1")
+        print("Thanks for playing Mystery Mansion!")
+    cursor.execute("select * from plot")
+    plot=cursor.fetchone()
 
-    cursor=db.cursor()
-    cursor.execute("select state from plot")
-    end_game=cursor.fetchone()[0]
-
-while end_game != 2:
+    if plot == (1, 1, 1, 0, 0):
+        cursor.execute("update npc set trust=2 where npcID=2")
+while plot == (1, 1, 1, 1, 0):
     print("loppuhuipennus!!!!!")
 #herp derp

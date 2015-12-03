@@ -114,10 +114,13 @@ def conversation(db, suspect):
         if personid == 1:
             answer = str("\n\"I heard her, miss Penelope. In the attic. She did some weird things! *hiccup* I went to war\n"
                      "and I never heard anything as scary as that.\"")
-            cursor.execute("update plot set state =1")
+            cursor.execute("update plot set state1=1")
             return answer
 
-
+        if personid == 2:
+            answer = str("Nyt rupes rytiseen!")
+            cursor.execute("update plot set state4=1")
+            return answer
 
 def location(room):
     if room == 'guestroom':
@@ -249,6 +252,7 @@ def look(db, object):
         else:
             return str("\nThe table is just a table. A few candle stubs on it, nothing more.\n")
     elif room == 12 and object == 'book':
+        cursor.execute("update plot set state2=1")
         return bookdesc
 
     elif room == 10 and object == 'lord':
@@ -296,6 +300,7 @@ def look(db, object):
         cursor.execute("select itemID from item where location=13")
         item = cursor.fetchall()
         if (5,) in item:
+            cursor.execute("update plot set state2=1")
             return bookdesc
         else:
             return str("\nNo interesting books around here.\n")
@@ -332,6 +337,7 @@ def take(db, object):
 
         elif playerroom == 4 and itemroom == 4 and object == 'page':
             cursor.execute("update item set location = 13 where itemid = 2")
+            cursor.execute("update plot set state3=1")
             return str("\nYou pick up and unfold the torn page. \"I wonder what this is?\"")
 
         elif playerroom == 12 and itemroom == 12 and object == 'book':

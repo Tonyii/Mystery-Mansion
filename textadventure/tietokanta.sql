@@ -48,8 +48,12 @@ create table SynoPerson(
 	primary key (Synonyymi));
 
 create table plot(
-    state int not null,
-    primary key (state));
+    state1 int not null,
+    state2 int not null,
+    state3 int not null,
+    state4 int not null,
+    state5 int not null,
+    primary key (state1));
 
 insert into Room values (1, "guestroom"), (2, "garage"), (3, "corridor"),
 			(4, "maidroom"), (5, "office"), (6, "kitchen"), (7, "stairs"), (8, "ballroom"),
@@ -69,4 +73,4 @@ insert into Synocmd values ("whiskey","whiskey"),("whiskey","bottle"),("whiskey"
 
 insert into SynoPerson values (4,"butler"),(4,"jeeves"),(4,"jeeves the butler"),(1, "willy"),(1,"groundskeeper"),(1,"willie"),(2,"maid"),(2,"penelope"),(3,"gordon"),(3,"chef"),(5,"sonya"),(5,"lady"),(5,"mistress");
 
-insert into plot values (0);
+insert into plot values (0,0,0,0,0);
