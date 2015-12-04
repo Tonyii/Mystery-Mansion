@@ -113,11 +113,11 @@ while plot == (1, 1, 1, 1, 0):
     whatnow=input("What now?!\n")
     whatnow=whatnow.lower()
     while "attic" not in whatnow:
-        whatnow=input("There's no time for that now! You have to put an end to this!\n")
+        whatnow=input("\nThere's no time for that now! You have to put an end to this!\n")
         whatnow=whatnow.lower()
 
         if "book" in whatnow:
-            print("You really think this is a good time for reading?!\n"
+            print("\nYou really think this is a good time for reading?!\n"
                   "Only the words 'NULLI INCANTA DEMONUM' spring to your mind.")
             whatnow=(input("What then?\n"))
             whatnow=whatnow.lower()
@@ -129,7 +129,7 @@ while plot == (1, 1, 1, 1, 0):
                         "Do something!\n")
     whatnow=whatnow.lower()
     if "nulli" in whatnow and "incanta" in whatnow and "demonum" in whatnow:
-        print("You hear a distant scream, like it is coming from another dimension. Penelope collapses to the floor.\n"
+        print("\nYou hear a distant scream, like it is coming from another dimension. Penelope collapses to the floor.\n"
               "You are victorious. The demon is gone and it will never come back.\n"
               "\n After a few hours the police will arrive and take away the still unconscious maid with them. A happy\n"
               "ending after all. \n"
@@ -146,7 +146,7 @@ while plot == (1, 1, 1, 1, 0):
                    "Last chance, detective!\n"))
     whatnow=whatnow.lower()
     if "nulli" in whatnow and "incanta" in whatnow and "demonum" in whatnow:
-        print("You hear a distant scream, like it is coming from another dimension. Penelope collapses to the floor.\n"
+        print("\nYou hear a distant scream, like it is coming from another dimension. Penelope collapses to the floor.\n"
               "You are victorious. The demon is gone and it will never come back.\n"
               "\n After a few hours the police will arrive and take away the still unconscious maid with them. A happy\n"
               "ending after all. \n"
@@ -155,7 +155,7 @@ while plot == (1, 1, 1, 1, 0):
         cursor.execute("select * from plot")
         plot=cursor.fetchone()
     else:
-        print("A black hole appears to the floor. A dark hand grabs you from your chest. You can't breathe.\n"
+        print("\nA black hole appears to the floor. A dark hand grabs you from your chest. You can't breathe.\n"
               "The hand drags you down to eternal coldness. Only thing that you can think is NULLI INCANTA DEMONUM.\n"
               "And then. Silence...\n"
               "THANK YOU FOR PLAYING MYSTERY MANSION. TRY AGAIN WITH BETTER LUCK!")
