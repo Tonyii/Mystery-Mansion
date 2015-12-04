@@ -104,6 +104,49 @@ while plot !=(1, 1, 1, 1, 0) and plot !=(1, 1, 1, 1, 1):
 
     if plot == (1, 1, 1, 0, 0):
         cursor.execute("update npc set trust=2 where npcID=2")
+#BOSSFIGHT!
 while plot == (1, 1, 1, 1, 0):
-    print("loppuhuipennus!!!!!")
-#herp derp
+
+    print(oma_funktiot.location("bossfight"))
+    whatnow=input("What now?!\n")
+    whatnow=whatnow.lower()
+    while "attic" not in whatnow:
+        whatnow=input("There's no time for that now! You have to put an end to this!\n")
+        whatnow=whatnow.lower()
+
+        if "book" in whatnow:
+            print("You really think this is good time for reading?!\n"
+                  "Only the words 'NULLI INCANTA DEMONUM' spring to your mind.")
+            whatnow=(input("What then?\n"))
+            whatnow=whatnow.lower()
+
+
+    whatnow=input("\nWhen you enter the attic you notice Penelope chanting at the back of the room.\n"
+                        "The air is filled with acrid smoke and the room temperature plummets toward zero.\n"
+                        "A horrifiying undescribable entity rushes toward you through the smoke.\n"
+                        "Do something!\n")
+    whatnow=whatnow.lower()
+    if "nulli" in whatnow and "incanta" in whatnow and "demonum" in whatnow:
+        print("Happy end!")
+        cursor.execute("plot plot set state5=1")
+        cursor.execute("select * from plot")
+        plot=cursor.fetchone()
+    elif "book" in whatnow:
+        print("You really think this is good time for reading?!\n"
+                  "Only the words 'NULLI INCANTA DEMONUM' spring to your mind.")
+
+    whatnow=(input("The demonic force surrounds you in an instant!\n"
+                   "You feel a choking shortness of breath!\n"
+                   "Last chance, detective!\n"))
+    whatnow=whatnow.lower()
+    if "nulli" in whatnow and "incanta" in whatnow and "demonum" in whatnow:
+        print("Happy end!")
+        cursor.execute("update plot set state5=1")
+        cursor.execute("select * from plot")
+        plot=cursor.fetchone()
+    else:
+        print("Not so happy end...")
+        cursor.execute("update plot set state5=1")
+        cursor.execute("select * from plot")
+        plot=cursor.fetchone()
+    #herp derp

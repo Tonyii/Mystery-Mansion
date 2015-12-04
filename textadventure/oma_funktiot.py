@@ -118,7 +118,8 @@ def conversation(db, suspect):
             return answer
 
         if personid == 2:
-            answer = str("Nyt rupes rytiseen!")
+            answer = str("As you try to confront Penelope she gives you an evil glance,\n"
+                         "mumbles something under her breath, and vanishes suddenly in a puff of smoke!")
             cursor.execute("update plot set state4=1")
             return answer
 
@@ -198,8 +199,11 @@ def location(room):
                    "The light is dim, but you can make out heeps of cardboard boxes along the walls.\n"
                    "A little light from a small window on the western end of the room reveals a small table with a chair.\n"
                    "The only way out is back down the ladder to the ballroom.\n")
-
-
+    if room == 'bossfight':
+        return str("\nYou hear strange chanting and eerie noises from the attic above you.\n"
+                   "The rest of the household crowd in the ballroom franticly.\n")
+        cursor=db.cursor()
+        cursor.execute("update player set location=14")
 def check_command (db, cmd):
     cursor = db.cursor()
     send = "select nimi from Synocmd where Synonyymi = '" + str(cmd) + "'"
