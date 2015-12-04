@@ -32,7 +32,7 @@ def player_input(command):
             global show_room_desc
             show_room_desc = 1
         elif checkedverb == 'help':
-            print(oma_funktiot.help())
+            oma_funktiot.help()
 
         elif checkedverb == 'talk' and checkednoun == 'person':
             print(oma_funktiot.conversation(db, noun))
