@@ -34,6 +34,12 @@ known_people =['butler', 'willy', 'maid', 'chef', 'lady']
 known_objects =['table', 'cabinet', 'book', 'spellbook', 'corpse', 'lord', 'chadwick']
 known_items =['whiskey']
 
+#help function
+def help():
+    print("For moving around there are following commands:", known_moves,"\n"
+            "If you want ton pick up an object you can:", known_takes, "\n"
+            "For character interaction:", known_talks, "\n"
+            "To examine things you have:", known_looks)
 #where you are
 def room_desc(db):
     cursor=db.cursor()
@@ -333,6 +339,8 @@ def take(db, object):
     cursor=db.cursor()
     cursor.execute("select player.location, item.location from player, item where player.location = item.location")
     rooms = cursor.fetchone()
+
+
     if rooms is not None:
         playerroom = rooms[0]
         itemroom = rooms[1]
