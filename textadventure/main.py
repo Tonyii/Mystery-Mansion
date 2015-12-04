@@ -130,7 +130,7 @@ while plot == (1, 1, 1, 1, 0):
     whatnow=whatnow.lower()
     if "nulli" in whatnow and "incanta" in whatnow and "demonum" in whatnow:
         print("Happy end!")
-        cursor.execute("plot plot set state5=1")
+        cursor.execute("update plot set state5=1")
         cursor.execute("select * from plot")
         plot=cursor.fetchone()
     elif "book" in whatnow:
