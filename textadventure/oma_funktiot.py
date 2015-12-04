@@ -198,7 +198,7 @@ def location(room):
                    "The late Lord's corpse is still lying on the bed. Hair white, eyes wide open, and arms stiffly grasping the air.\n"
                    "What could've caused a man such and eerie ending?\n"
                    "Looking at the remains of your late friend you feel a sense of duty that beckons you to get to the bottom of this!\n"
-                   "From the bedroom it is possibly to enter the study or ballroom.\n")
+                   "From the bedroom it is possible to enter the study or ballroom.\n")
     if room == 'study':
         return str("\nYou are in Lord Chadwick's study.\n"
                    "There's a desk neatly organized by the window, a comfortable chair positioned under a reading lamp on one corner,\n"
