@@ -84,7 +84,6 @@ plot = cursor.fetchone()
 show_room_desc = 1
 
 #pelin päälooppi
-#while plot == (0, 0, 0, 0, 0) or plot == (1, 0, 0, 0, 0) or plot == (1, 1, 0, 0, 0) or plot == (1, 1, 1, 0, 0):
 while plot !=(1, 1, 1, 1, 0) and plot !=(1, 1, 1, 1, 1):
 
     if show_room_desc == 1:
