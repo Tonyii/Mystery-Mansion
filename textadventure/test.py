@@ -1,23 +1,20 @@
-import sys
-import time
-import sched
+import mysql.connector
+import oma_funktiot
 
-test = "jarker bdlsg nsssg sd msdg"
-for l in test:
-    sys.stdout.write(l)
-    sys.stdout.flush()
-    time.sleep(.03)
+hostname = 'localhost'
+uname = 'player'
+pswd = 'mm'
+db = oma_funktiot.open_database(hostname, uname, pswd)
 
-s = sched.scheduler(time.time, time.sleep)
-def print_time(a='default'):
-    print("From print_time", time.time(), a)
+cursor=db.cursor()
+cursor.execute("select * from plot")
+plot=cursor.fetchone()
+print(plot)
 
-def print_some_times():
-    print(time.time())
-    s.enter(10, 1, print_time)
-    s.enter(5, 2, print_time, argument=('positional',))
-    s.enter(5, 1, print_time, kwargs={'a': 'keyword'})
-    s.run()
-    print(time.time())
-
-print_some_times()
+while plot == (0, 0, 0, 0, 0):
+    step=input("what now then?")
+    if step == 'go':
+        cursor.execute("update plot set state1=1")
+        cursor.execute("select * from plot")
+        plot=cursor.fetchone()
+        print (plot)
