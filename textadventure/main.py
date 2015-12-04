@@ -117,7 +117,7 @@ while plot == (1, 1, 1, 1, 0):
         whatnow=whatnow.lower()
 
         if "book" in whatnow:
-            print("You really think this is good time for reading?!\n"
+            print("You really think this is a good time for reading?!\n"
                   "Only the words 'NULLI INCANTA DEMONUM' spring to your mind.")
             whatnow=(input("What then?\n"))
             whatnow=whatnow.lower()
@@ -138,10 +138,10 @@ while plot == (1, 1, 1, 1, 0):
         cursor.execute("select * from plot")
         plot=cursor.fetchone()
     elif "book" in whatnow:
-        print("You really think this is good time for reading?!\n"
-                  "Only the words 'NULLI INCANTA DEMONUM' spring to your mind.")
+        print("\nYou really think this is good a time for reading?!\n"
+                  "Only the words 'NULLI INCANTA DEMONUM' spring to your mind.\n")
 
-    whatnow=(input("The demonic force surrounds you in an instant!\n"
+    whatnow=(input("\nThe demonic force surrounds you in an instant!\n"
                    "You feel a choking shortness of breath!\n"
                    "Last chance, detective!\n"))
     whatnow=whatnow.lower()

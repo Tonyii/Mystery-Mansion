@@ -81,7 +81,7 @@ def conversation(db, suspect):
     cursor.execute(send)
     person = cursor.fetchone()
     if person is None:
-        print("There is no such character here to talk to")
+        print("There is no such character here to talk to.")
 
 
     if person is not None:
