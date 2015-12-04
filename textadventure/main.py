@@ -129,7 +129,11 @@ while plot == (1, 1, 1, 1, 0):
                         "Do something!\n")
     whatnow=whatnow.lower()
     if "nulli" in whatnow and "incanta" in whatnow and "demonum" in whatnow:
-        print("Happy end!")
+        print("You hear a distant scream, like it is coming from another dimension. Penelope collapses to the floor.\n"
+              "You are victorious. The demon is gone and it will never come back.\n"
+              "\n After a few hours the police will arrive and take away the still unconscious maid with them. A happy\n"
+              "ending after all. \n"
+              "THANK YOU FOR PLAYING MYSTERY MANSION <3")
         cursor.execute("update plot set state5=1")
         cursor.execute("select * from plot")
         plot=cursor.fetchone()
@@ -142,12 +146,19 @@ while plot == (1, 1, 1, 1, 0):
                    "Last chance, detective!\n"))
     whatnow=whatnow.lower()
     if "nulli" in whatnow and "incanta" in whatnow and "demonum" in whatnow:
-        print("Happy end!")
+        print("You hear a distant scream, like it is coming from another dimension. Penelope collapses to the floor.\n"
+              "You are victorious. The demon is gone and it will never come back.\n"
+              "\n After a few hours the police will arrive and take away the still unconscious maid with them. A happy\n"
+              "ending after all. \n"
+              "THANK YOU FOR PLAYING MYSTERY MANSION <3")
         cursor.execute("update plot set state5=1")
         cursor.execute("select * from plot")
         plot=cursor.fetchone()
     else:
-        print("Not so happy end...")
+        print("A black hole appears to the floor. A dark hand grabs you from your chest. You can't breathe.\n"
+              "The hand drags you down to eternal coldness. Only thing that you can think is NULLI INCANTA DEMONUM.\n"
+              "And then. Silence...\n"
+              "THANK YOU FOR PLAYING MYSTERY MANSION. TRY AGAIN WITH BETTER LUCK!")
         cursor.execute("update plot set state5=1")
         cursor.execute("select * from plot")
         plot=cursor.fetchone()
