@@ -113,7 +113,9 @@ while plot == (1, 1, 1, 1, 0):
     whatnow=input("What now?!\n")
     whatnow=whatnow.lower()
     while "attic" not in whatnow:
-        whatnow=input("\nThere's no time for that now! You have to put an end to this!\n")
+        whatnow=input("\nThere's no time for that now!\n"
+                      "The strange noises from the attic become louder with each wasted moment!\n"
+                      "You have to put an end to this!\n")
         whatnow=whatnow.lower()
 
         if "book" in whatnow:
@@ -131,12 +133,13 @@ while plot == (1, 1, 1, 1, 0):
     if "nulli" in whatnow and "incanta" in whatnow and "demonum" in whatnow:
         print("\nYou hear a distant scream, like it is coming from another dimension. Penelope collapses to the floor.\n"
               "You are victorious. The demon is gone and it will never come back.\n"
-              "\n After a few hours the police will arrive and take away the still unconscious maid with them. A happy\n"
+              "\nAfter a few hours the police will arrive and take away the still unconscious maid with them. A happy\n"
               "ending after all. \n"
               "THANK YOU FOR PLAYING MYSTERY MANSION <3")
         cursor.execute("update plot set state5=1")
         cursor.execute("select * from plot")
         plot=cursor.fetchone()
+        continue
     elif "book" in whatnow:
         print("\nYou really think this is good a time for reading?!\n"
                   "Only the words 'NULLI INCANTA DEMONUM' spring to your mind.\n")
@@ -145,10 +148,11 @@ while plot == (1, 1, 1, 1, 0):
                    "You feel a choking shortness of breath!\n"
                    "Last chance, detective!\n"))
     whatnow=whatnow.lower()
+
     if "nulli" in whatnow and "incanta" in whatnow and "demonum" in whatnow:
         print("\nYou hear a distant scream, like it is coming from another dimension. Penelope collapses to the floor.\n"
               "You are victorious. The demon is gone and it will never come back.\n"
-              "\n After a few hours the police will arrive and take away the still unconscious maid with them. A happy\n"
+              "\nAfter a few hours the police will arrive and take away the still unconscious maid with them. A happy\n"
               "ending after all. \n"
               "THANK YOU FOR PLAYING MYSTERY MANSION <3")
         cursor.execute("update plot set state5=1")
