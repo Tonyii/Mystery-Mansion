@@ -362,7 +362,7 @@ def take(db, object):
             cursor.execute("update item set location = 13 where itemid = 5")
             return str("\nYou pick up the spellbook and notice that a page is missing. \" Hmmm there are pages missing..\"\n")
     else:
-        return str("\nThere seems to be no such object nearby.")
+        return str("\nThere seems to be no such object nearby.\n")
 
 def inventory(db):
     cursor=db.cursor()
