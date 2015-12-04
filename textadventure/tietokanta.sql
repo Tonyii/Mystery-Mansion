@@ -57,7 +57,7 @@ create table plot(
 
 insert into Room values (1, "guestroom"), (2, "garage"), (3, "corridor"),
 			(4, "maidroom"), (5, "office"), (6, "kitchen"), (7, "stairs"), (8, "ballroom"),
-            (9, "bathroom"), (10, "master bedroom"), (11, "study"), (12, "attic"), (13, "inventory");
+            (9, "bathroom"), (10, "master bedroom"), (11, "study"), (12, "attic"), (13, "inventory"),(14, "bossfight");
 
 insert into Player values (1, 1);
 insert into NPC values (1, "Groundskeeper Willy", 2, 1), (2, "Maid Penelope", 8, 1), (3, "Chef Gordon", 6, 1), (4, "Jeeves the Butler", 5, 1), (5, "Lady Sonya", 10, 1);

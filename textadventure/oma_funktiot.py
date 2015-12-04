@@ -34,6 +34,12 @@ known_people =['butler', 'willy', 'maid', 'chef', 'lady']
 known_objects =['table', 'cabinet', 'book', 'spellbook', 'corpse', 'lord', 'chadwick']
 known_items =['whiskey']
 
+#help function
+def help():
+    print("For moving around there are following commands:", known_moves,"\n"
+            "If you want ton pick up an object you can:", known_takes, "\n"
+            "For character interaction:", known_talks, "\n"
+            "To examine things you have:", known_looks)
 #where you are
 def room_desc(db):
     cursor=db.cursor()
@@ -71,13 +77,18 @@ def conversation(db, suspect):
     cursor=db.cursor()
 
     #Tarkistaa nimen synonyymit ja vaihtaa oikean nimen
-    send = "select npc.npcid, npc.trust from SynoPerson, npc where synoperson.Synonyymi = '" + suspect + "' and Synoperson.personID = npc.npcid"
+    send = "select npc.npcid, npc.trust from SynoPerson, npc, player where synoperson.Synonyymi = '" + suspect + "' and player.location and Synoperson.personID = npc.npcid and npc.location in (select location from player)"
     cursor.execute(send)
     person = cursor.fetchone()
+    if person is None:
+        print("There is no such character here to talk to.")
+
 
     if person is not None:
         personid = person[0]
         trust = person[1]
+
+
 
     if trust == 1:
         #WILLY
@@ -118,9 +129,11 @@ def conversation(db, suspect):
             return answer
 
         if personid == 2:
-            answer = str("Nyt rupes rytiseen!")
+            answer = str("As you try to confront Penelope she gives you an evil glance,\n"
+                         "mumbles something under her breath, and vanishes suddenly in a puff of smoke!")
             cursor.execute("update plot set state4=1")
             return answer
+
 
 def location(room):
     if room == 'guestroom':
@@ -198,8 +211,11 @@ def location(room):
                    "The light is dim, but you can make out heeps of cardboard boxes along the walls.\n"
                    "A little light from a small window on the western end of the room reveals a small table with a chair.\n"
                    "The only way out is back down the ladder to the ballroom.\n")
-
-
+    if room == 'bossfight':
+        return str("\nYou hear strange chanting and eerie noises from the attic above you.\n"
+                   "The rest of the household crowd in the ballroom franticly.\n")
+        cursor=db.cursor()
+        cursor.execute("update player set location=14")
 def check_command (db, cmd):
     cursor = db.cursor()
     send = "select nimi from Synocmd where Synonyymi = '" + str(cmd) + "'"
@@ -215,7 +231,7 @@ def check_command (db, cmd):
 #item kuvauksia:
 pagedesc = str("\nThe page is from a book written in a strange language unknown to you.\n"
                        "There is a crude illustration of what looks like a maelstrom spinning above a crowd of robe-clad men.\n")
-whiskdesc = str("\nEetu kirjottaa tähän hienon viskikuvauksen\n")
+whiskdesc = str("\nYou look at the bottle, \"Glenlivet 12yo\", nice. This is truly a great whiskey.\n")
 bookdesc = str("\nThe book, written in a strange language unknown to you, seems to have been mostly open at a same certain section.\n"
                    "The words 'NULLI INCANTA DEMONUM' in big letters at the end of this section strike your attention.\n")
 #itse funktio
@@ -327,6 +343,8 @@ def take(db, object):
     cursor=db.cursor()
     cursor.execute("select player.location, item.location from player, item where player.location = item.location")
     rooms = cursor.fetchone()
+
+
     if rooms is not None:
         playerroom = rooms[0]
         itemroom = rooms[1]
@@ -344,7 +362,7 @@ def take(db, object):
             cursor.execute("update item set location = 13 where itemid = 5")
             return str("\nYou pick up the spellbook and notice that a page is missing. \" Hmmm there are pages missing..\"\n")
     else:
-        return str("\nThere seems to be no such object nearby.")
+        return str("\nThere seems to be no such object nearby.\n")
 
 def inventory(db):
     cursor=db.cursor()
