@@ -18,14 +18,15 @@
 from tkinter import *
 
 #pluslasku
-def plus():
+def plus(syote):
     try:
-        luku1 = float(Entry.get(arvo1))
-        luku2 = float(Entry.get(arvo2))
+        luku1 = str(Entry.get(arvo1))
+        luku2 = str(Entry.get(arvo1))
         tulos = luku1 + luku2
 
+
         Entry.delete(vastaus, 0, 30)
-        Entry.insert(vastaus, 0, tulos)
+        Entry.insert(vastaus, 0, syote)
 #syöte jotain muuta kuin lukuja
     except ValueError:
         virhe = ("Et antanut pelkkiä lukuja!")
@@ -38,7 +39,7 @@ def plus():
 def minus():
    try:
         luku1 = float(Entry.get(arvo1))
-        luku2 = float(Entry.get(arvo2))
+        luku2 = float(Entry.get(arvo1))
         tulos = luku1 - luku2
 
         Entry.delete(vastaus, 0, 30)
@@ -52,7 +53,7 @@ def minus():
 def kerto():
    try:
         luku1 = float(Entry.get(arvo1))
-        luku2 = float(Entry.get(arvo2))
+        luku2 = float(Entry.get(arvo1))
         tulos = luku1 * luku2
 
         Entry.delete(vastaus, 0, 30)
@@ -65,7 +66,7 @@ def kerto():
 def jako():
    try:
         luku1 = float(Entry.get(arvo1))
-        luku2 = float(Entry.get(arvo2))
+        luku2 = float(Entry.get(arvo1))
         tulos = luku1 / luku2
 
         Entry.delete(vastaus, 0, 30)
@@ -102,41 +103,44 @@ frame4=Frame(GUI)
 frame4.pack()
 
 #tehdään napit laskutoimituksille ja lopetukselle
-plusnappi=Button(frame3, text="+", command=plus)
-plusnappi.pack(side=LEFT)
+plusnappi=Button(frame3, text="execute", command=plus)
+plusnappi.pack(side=RIGHT)
 
-miinusnappi=Button(frame3, text="-", command=minus)
-miinusnappi.pack(side=LEFT)
+miinusnappi=Button(frame3, text="help", command=minus)
+miinusnappi.pack(side=RIGHT)
 
-kertonappi=Button(frame3, text="*", command=kerto)
-kertonappi.pack(side=LEFT)
+kertonappi=Button(frame3, text="inventory", command=kerto)
+kertonappi.pack(side=RIGHT)
 
-jakonappi=Button(frame3, text="/", command=jako)
-jakonappi.pack(side=LEFT)
+#jakonappi=Button(frame3, text="/", command=jako)
+#jakonappi.pack(side=LEFT)
 
-lopetusnappi=Button(frame4, text="Lopeta", command=lopeta)
+lopetusnappi=Button(frame4, text="Quit", command=lopeta)
 lopetusnappi.pack(side=BOTTOM)
 
 #tehdään ja nimetään syötekentät
-ylateksti=Label(frame2, text="Syötä kaksi lukua:")
-ylateksti.pack(side=TOP)
+#ylateksti=Label(frame2, text="Syötä kaksi lukua:")
+#ylateksti.pack(side=TOP)
 
-eka_luku=Label(frame2, text="Ensimmäinen luku")
+eka_luku=Label(frame4, text="What to do?",)
 eka_luku.pack(side=LEFT)
 
-arvo1=Entry(frame2, width=5)
+arvo1=Entry(frame4, width=5)
 arvo1.pack(side=LEFT)
 
-toka_luku=Label(frame2, text="Toinen luku")
-toka_luku.pack(side=LEFT)
+#toka_luku=Label(frame2, text="Toinen luku")
+#toka_luku.pack(side=LEFT)
 
-arvo2=Entry(frame2, width=5)
-arvo2.pack(side=LEFT)
+#arvo1=Entry(frame2, width=5)
+#arvo1.pack(side=LEFT)
 
-tulos=Label(frame4, text="Tulos:")
-tulos.pack()
+tulos=Label(frame, text="")
+tulos.pack(side=TOP)
 
-vastaus=Entry(frame4, width=30)
+vastaus=Entry(frame, width=30)
 vastaus.pack(side=LEFT)
+
+syote= '4'
+plus(syote)
 
 GUI.mainloop()
