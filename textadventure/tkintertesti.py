@@ -59,7 +59,8 @@ def jako():
 
 def syote2(db):
     try:
-        desc = oma_funktiot.room_desc(db)
+        location = oma_funktiot.room_desc(db)
+        desc = oma_funktiot.location(location)
         return desc
         #Entry.insert(syote2, desc)
 
