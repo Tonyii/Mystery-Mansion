@@ -28,39 +28,99 @@ uname = 'player'
 pswd = 'mm'
 db = oma_funktiot.open_database(hostname, uname, pswd)
 
-
-
-#pluslasku
-def plus(syote):
+def player_input(command):
     try:
-        luku1 = str(Entry.get(arvo1))
-        luku2 = str(Entry.get(arvo1))
-        tulos = luku1 + luku2
+        command_list=command.split()
+
+        verb = command_list[0]
+        noun = command_list[-1]
+        #ignore hurr all capital letters in commands
+        verb = verb.lower()
+        noun = noun.lower()
+
+        #if verb not in oma_funktiot.known_commands:
+            #print("You try to", command, "without significant result.")
+        checkedverb = oma_funktiot.check_command(db, verb)
+        checkednoun = oma_funktiot.check_noun(db, noun)
+
+        #tarkistaa onko palautettu "go" verbi ja "room" subst.
+        if checkedverb == 'go' and checkednoun == 'room':
+            #lahettaa sitten alkuperaisen noun:in
+            oma_funktiot.move(db, noun)
+            global show_room_desc
+            show_room_desc = 1
+        elif checkedverb == 'help':
+            return oma_funktiot.help()
+
+        elif checkedverb == 'talk' and checkednoun == 'person':
+            return oma_funktiot.conversation(db, noun)
+
+        elif checkedverb == 'look':
+            return oma_funktiot.look(db, checkednoun)
+
+        elif checkedverb == 'take':
+            return oma_funktiot.take(db, checkednoun)
+
+        elif checkedverb == 'give':
+            return oma_funktiot.give(db, checkednoun)
+
+        elif verb in oma_funktiot.known_helps:
+            if verb == 'info':
+                return oma_funktiot.info(db)
+            if verb == 'inventory':
+                return oma_funktiot.inventory(db)
+
+        else:
+            elsereturn = "You try to " + command + " without significant result.\n"
+            return elsereturn
 
 
+    except:
+        IOError
+alku = 0
+#pluslasku
+def execute_prints(event):
+    try:
+        global alku
+        if alku == 0:
+            return
+        else:
+
+            command = str(Entry.get(cmd_line))
+            ret = player_input(command)
+            if ret is not None:
+                Infotext.insert(END, ret)
+            else:
+                Kuvaus(db)
+        return
 
 #syöte jotain muuta kuin lukuja
     except ValueError:
         virhe = ("Et antanut pelkkiä lukuja!")
-
+        return
 
 
 #miinuslasku
-def minus():
+def help_button_cmd():
+    help = "\n" + str(player_input("help"))
+    Infotext.insert(END, help)
     return
 
 #kertolasku
-def kerto():
+def inv_button_cmd():
+    inv = "\n" + str(player_input("inventory"))
+    Infotext.insert(END, inv)
     return
 
 #jakolasku
 def jako():
     return
 
-def syote2(db):
+def Kuvaus(db):
     try:
         location = oma_funktiot.room_desc(db)
         desc = oma_funktiot.location(location)
+        syote2.configure(text=str(desc))
         return desc
         #Entry.insert(syote2, desc)
 
@@ -86,67 +146,89 @@ GUI.title("Mystery mansion")
 frame=Frame(GUI)
 frame.pack()
 
-frame1 = Frame(GUI, borderwidth=150)
-frame1.pack(side=TOP)
+frame1 = Frame(GUI)
+frame1.pack( side=TOP)
 
-frame2=Frame(GUI, borderwidth=150)
+frame2=Frame(GUI)
 frame2.pack()
 
-frame3=Frame(GUI, borderwidth=5)
+frame3=Frame(GUI)
 frame3.pack()
 
 frame4=Frame(GUI)
 frame4.pack()
 
-#tehdään napit laskutoimituksille ja lopetukselle
-plusnappi=Button(frame3, text="execute", command=plus)
-plusnappi.pack(side=RIGHT)
+#tehdään napit komennoille ja lopetukselle
+execute=Button(frame3, text="execute", command=execute_prints)
+execute.pack(side=RIGHT)
 
-miinusnappi=Button(frame3, text="help", command=minus)
+miinusnappi=Button(frame3, text="help", command=help_button_cmd)
 miinusnappi.pack(side=RIGHT)
 
-kertonappi=Button(frame3, text="inventory", command=kerto)
+kertonappi=Button(frame3, text="inventory", command=inv_button_cmd)
 kertonappi.pack(side=RIGHT)
 
-#jakonappi=Button(frame3, text="/", command=jako)
-#jakonappi.pack(side=LEFT)
 
 lopetusnappi=Button(frame4, text="Quit", command=lopeta)
 lopetusnappi.pack(side=BOTTOM)
 
+#tulostetaan syotteet
+syote2=Label(frame1, height=10, text=oma_funktiot.location("guestroom"))
+syote2.pack(side=TOP)
+
+Printframe=Scrollbar(frame2)
+Printframe.pack(side=TOP, fill=Y)
+
+Infotext = Text(frame2, height=10, width=130)
+Infotext.pack(side=TOP, fill=Y)
+
+Printframe.config(command=Infotext.yview)
+Infotext.config(yscrollcommand=Printframe.set)
+
 #tehdään ja nimetään syötekentät
-#ylateksti=Label(frame2, text="Syötä kaksi lukua:")
-#ylateksti.pack(side=TOP)
 
 eka_luku=Label(frame4, text="What to do?",)
 eka_luku.pack(side=LEFT)
 
-arvo1=Entry(frame4, width=5)
-arvo1.pack(side=LEFT)
+cmd_line=Entry(frame4, width=50)
+cmd_line.pack(side=LEFT)
+cmd_line.bind('<Return>', execute_prints)
 
-#toka_luku=Label(frame2, text="Toinen luku")
-#toka_luku.pack(side=LEFT)
-
-#arvo1=Entry(frame2, width=5)
-#arvo1.pack(side=LEFT)
-syote= """tahan tulee tapahtumia"""
-#plus(syote)
-syote2= syote2(db)
-
-
-syote2=Label(frame1, text=syote2)
-syote2.pack(side=TOP)
-
-tulos=Label(frame2, text=syote)
-tulos.pack(side=TOP)
+#Haetaan printeille arvot
+#room_d= syote2(db)
+syote1= execute_prints
 
 #vastaus=Entry(frame, width=10)
 #vastaus.pack(side=LEFT)
-
+alku = 1
 
 
 GUI.mainloop()
 
+####
+####
+
+
+
+
+
+
+
+
+
+###VAIHTUUUUU
+
+
+
+
+
+
+
+
+#######
+
+######
+THANK_YOU_FOR_PLAYING_MYSTERY_MANSION()
 
 def player_input(command):
     try:

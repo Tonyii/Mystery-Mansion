@@ -36,10 +36,11 @@ known_items =['whiskey']
 
 #help function
 def help():
-    print("For moving around there are following commands:", known_moves,"\n"
+    ret = ("For moving around there are following commands:", known_moves,"\n"
             "If you want ton pick up an object you can:", known_takes, "\n"
             "For character interaction:", known_talks, "\n"
             "To examine things you have:", known_looks)
+    return ret
 #where you are
 def room_desc(db):
     cursor=db.cursor()
