@@ -19,14 +19,14 @@ from tkinter import *
 import mysql.connector
 import time
 import sys
-import oma_funktiot
+import tk_oma_funktiot
 import getpass
 
 #asd
 hostname = 'localhost'
 uname = 'player'
 pswd = 'mm'
-db = oma_funktiot.open_database(hostname, uname, pswd)
+db = tk_oma_funktiot.open_database(hostname, uname, pswd)
 
 def player_input(command):
     try:
@@ -40,38 +40,38 @@ def player_input(command):
 
         #if verb not in oma_funktiot.known_commands:
             #print("You try to", command, "without significant result.")
-        checkedverb = oma_funktiot.check_command(db, verb)
-        checkednoun = oma_funktiot.check_noun(db, noun)
+        checkedverb = tk_oma_funktiot.check_command(db, verb)
+        checkednoun = tk_oma_funktiot.check_noun(db, noun)
 
         #tarkistaa onko palautettu "go" verbi ja "room" subst.
         if checkedverb == 'go' and checkednoun == 'room':
             #lahettaa sitten alkuperaisen noun:in
-            oma_funktiot.move(db, noun)
+            tk_oma_funktiot.move(db, noun)
             global show_room_desc
             show_room_desc = 1
         elif checkedverb == 'help':
-            return oma_funktiot.help()
+            return tk_oma_funktiot.help()
 
         elif checkedverb == 'talk' and checkednoun == 'person':
-            return oma_funktiot.conversation(db, noun)
+            return tk_oma_funktiot.conversation(db, noun)
 
         elif checkedverb == 'look':
-            return oma_funktiot.look(db, checkednoun)
+            return tk_oma_funktiot.look(db, checkednoun)
 
         elif checkedverb == 'take':
-            return oma_funktiot.take(db, checkednoun)
+            return tk_oma_funktiot.take(db, checkednoun)
 
         elif checkedverb == 'give':
-            return oma_funktiot.give(db, checkednoun)
+            return tk_oma_funktiot.give(db, checkednoun)
 
-        elif verb in oma_funktiot.known_helps:
+        elif verb in tk_oma_funktiot.known_helps:
             if verb == 'info':
-                return oma_funktiot.info(db)
+                return tk_oma_funktiot.info(db)
             if verb == 'inventory':
-                return oma_funktiot.inventory(db)
+                return tk_oma_funktiot.inventory(db)
 
         else:
-            elsereturn = "You try to " + command + " without significant result.\n"
+            elsereturn = "\nYou try to " + command + " without significant result.\n"
             return elsereturn
 
 
@@ -89,10 +89,11 @@ def execute_prints(anything_at_all):
             command = str(Entry.get(cmd_line))
             ret = player_input(command)
             if ret is not None:
-                Infotext.insert(END, ret)
+                Infotext.insert("1.0", ret)
                 cmd_line.delete(0, END)
             else:
                 Kuvaus(db)
+                cmd_line.delete(0, END)
         return
 
 #syöte jotain muuta kuin lukuja
@@ -119,8 +120,8 @@ def jako():
 
 def Kuvaus(db):
     try:
-        location = oma_funktiot.room_desc(db)
-        desc = oma_funktiot.location(location)
+        location = tk_oma_funktiot.room_desc(db)
+        desc = tk_oma_funktiot.location(location)
         syote2.configure(text=str(desc))
         return desc
         #Entry.insert(syote2, desc)
@@ -160,8 +161,8 @@ frame4=Frame(frame, bg="black")
 frame4.pack()
 
 #tehdään napit komennoille ja lopetukselle
-execute=Button(frame3, text="execute", bg="black", fg="white", command=execute_prints("anything"))
-execute.pack(side=RIGHT)
+#execute=Button(frame3, text="execute", bg="black", fg="white", command=execute_prints("anything"))
+#execute.pack(side=RIGHT)
 
 miinusnappi=Button(frame3, text="help", bg="black", fg="white", command=help_button_cmd)
 miinusnappi.pack(side=RIGHT)
@@ -177,13 +178,13 @@ lopetusnappi.pack(side=BOTTOM)
 back_image = PhotoImage(file="mansionBG_vaalea.gif")
 
 #tulostetaan syotteet
-syote2=Label(frame1, justify= LEFT, compound= CENTER, padx=10, text=oma_funktiot.location("guestroom"), image=back_image, fg="white", font=("Courier", 9))
+syote2=Label(frame1, width=800, bd=0, padx=0, pady=0, justify= LEFT, compound= CENTER, text=tk_oma_funktiot.location("guestroom"), image=back_image, fg="white", font=("Courier", 9))
 syote2.pack(side=TOP)
 
 Printframe=Scrollbar(frame4, bg="black")
 Printframe.pack(side=RIGHT, fill=Y)
 
-Infotext = Text(frame2, height=10, width=100, bg="black", fg="white")
+Infotext = Text(frame2, height=10, width=100, bg="black", fg="white", padx=0, pady=0)
 Infotext.pack(side=TOP, fill=Y)
 
 Printframe.config(command=Infotext.yview)
