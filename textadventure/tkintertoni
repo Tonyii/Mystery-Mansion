@@ -1,0 +1,216 @@
+#Eetu Kaivola
+
+# -*- coding: utf-8 -*-
+
+#Eetu Kaivola
+#224777
+#eetu.kaivola@student.tut.fi
+#harjoitustyö2
+
+#Toteutettu hyvin yksinkertainen nelilaskin.
+#Ohjelman käynnistyessä pyydetään syöttämään kaksi desmaalilukua,
+#joille voidaan tehdä neljä eri laskutoimitusta nappia painamalla.
+#Valitsemalla lopeta, ohjelma kuolee.
+
+#määritellään koodaus
+# -*- coding: utf-8 -*-
+#tuodaan tkinter
+from tkinter import *
+import mysql.connector
+import time
+import sys
+import oma_funktiot
+import getpass
+
+#asd
+hostname = 'localhost'
+uname = 'player'
+pswd = 'mm'
+db = oma_funktiot.open_database(hostname, uname, pswd)
+
+def player_input(command):
+    try:
+        command_list=command.split()
+
+        verb = command_list[0]
+        noun = command_list[-1]
+        #ignore hurr all capital letters in commands
+        verb = verb.lower()
+        noun = noun.lower()
+
+        #if verb not in oma_funktiot.known_commands:
+            #print("You try to", command, "without significant result.")
+        checkedverb = oma_funktiot.check_command(db, verb)
+        checkednoun = oma_funktiot.check_noun(db, noun)
+
+        #tarkistaa onko palautettu "go" verbi ja "room" subst.
+        if checkedverb == 'go' and checkednoun == 'room':
+            #lahettaa sitten alkuperaisen noun:in
+            oma_funktiot.move(db, noun)
+            global show_room_desc
+            show_room_desc = 1
+        elif checkedverb == 'help':
+            return oma_funktiot.help()
+
+        elif checkedverb == 'talk' and checkednoun == 'person':
+            return oma_funktiot.conversation(db, noun)
+
+        elif checkedverb == 'look':
+            return oma_funktiot.look(db, checkednoun)
+
+        elif checkedverb == 'take':
+            return oma_funktiot.take(db, checkednoun)
+
+        elif checkedverb == 'give':
+            return oma_funktiot.give(db, checkednoun)
+
+        elif verb in oma_funktiot.known_helps:
+            if verb == 'info':
+                return oma_funktiot.info(db)
+            if verb == 'inventory':
+                return oma_funktiot.inventory(db)
+
+        else:
+            elsereturn = "You try to " + command + " without significant result.\n"
+            return elsereturn
+
+
+    except:
+        IOError
+alku = 0
+#pluslasku
+def execute_prints(anything_at_all):
+    try:
+        global alku
+        if alku == 0:
+            return
+        else:
+
+            command = str(Entry.get(cmd_line))
+            ret = player_input(command)
+            if ret is not None:
+                Infotext.insert(END, ret)
+                cmd_line.delete(0, END)
+            else:
+                Kuvaus(db)
+        return
+
+#syöte jotain muuta kuin lukuja
+    except ValueError:
+        virhe = ("Et antanut pelkkiä lukuja!")
+        return
+
+
+#miinuslasku
+def help_button_cmd():
+    help = "\n" + str(player_input("help"))
+    Infotext.insert(END, help)
+    return
+
+#kertolasku
+def inv_button_cmd():
+    inv = "\n" + str(player_input("inventory"))
+    Infotext.insert(END, inv)
+    return
+
+#jakolasku
+def jako():
+    return
+
+def Kuvaus(db):
+    try:
+        location = oma_funktiot.room_desc(db)
+        desc = oma_funktiot.location(location)
+        syote2.configure(text=str(desc))
+        return desc
+        #Entry.insert(syote2, desc)
+
+    except ValueError:
+        virhe = ("Et antanut pelkkiä lukuja!")
+        return virhe
+        #Entry.insert(syote2, virhe)
+
+#ohjelman lopetus
+def quit_program():
+    GUI.destroy()
+    return
+
+#avataan ikkuna
+GUI=Tk()
+
+#annetaan ikkunalle nimi
+GUI.title("Mystery mansion")
+
+#luodaan framet ja rajat, joihin sijoitetaan tekstikentät
+#ja ohjelman toiminnot
+
+frame=Frame(GUI, bg="black", bd=1)
+frame.pack()
+
+frame1 = Frame(frame)
+frame1.pack(side=TOP)
+
+frame2=Frame(frame)
+frame2.pack()
+
+frame3=Frame(frame)
+frame3.pack()
+
+frame4=Frame(frame, bg="black")
+frame4.pack()
+
+#tehdään napit komennoille ja lopetukselle
+execute=Button(frame3, text="execute", bg="black", fg="white", command=execute_prints("anything"))
+execute.pack(side=RIGHT)
+
+miinusnappi=Button(frame3, text="help", bg="black", fg="white", command=help_button_cmd)
+miinusnappi.pack(side=RIGHT)
+
+kertonappi=Button(frame3, text="inventory", bg="black", fg="white", command=inv_button_cmd)
+kertonappi.pack(side=RIGHT)
+
+
+lopetusnappi=Button(frame4, text="Quit", bg="black", fg="white", command=quit_program)
+lopetusnappi.pack(side=BOTTOM)
+
+#Kuva
+back_image = PhotoImage(file="mansionBG_vaalea.gif")
+
+#tulostetaan syotteet
+syote2=Label(frame1, justify= LEFT, compound= CENTER, padx=10, text=oma_funktiot.location("guestroom"), image=back_image, fg="white", font=("Courier", 9))
+syote2.pack(side=TOP)
+
+Printframe=Scrollbar(frame4, bg="black")
+Printframe.pack(side=RIGHT, fill=Y)
+
+Infotext = Text(frame2, height=10, width=100, bg="black", fg="white")
+Infotext.pack(side=TOP, fill=Y)
+
+Printframe.config(command=Infotext.yview)
+Infotext.config(yscrollcommand=Printframe.set)
+
+#tehdään ja nimetään syötekentät
+
+eka_luku=Label(frame4, text="What to do?", bg="black", fg="white")
+eka_luku.pack(side=LEFT)
+
+cmd_line=Entry(frame4, width=50, bg="black", fg="white")
+cmd_line.pack(side=LEFT)
+cmd_line.bind('<Return>', execute_prints)
+
+#Haetaan printeille arvot
+#room_d= syote2(db)
+syote1= execute_prints
+
+#vastaus=Entry(frame, width=10)
+#vastaus.pack(side=LEFT)
+alku = 1
+
+
+GUI.mainloop()
+
+####
+####
+
+
+

@@ -79,7 +79,7 @@ def player_input(command):
         IOError
 alku = 0
 #pluslasku
-def execute_prints(event):
+def execute_prints(anything_at_all):
     try:
         global alku
         if alku == 0:
@@ -90,6 +90,7 @@ def execute_prints(event):
             ret = player_input(command)
             if ret is not None:
                 Infotext.insert(END, ret)
+                cmd_line.delete(0, END)
             else:
                 Kuvaus(db)
         return
@@ -130,7 +131,7 @@ def Kuvaus(db):
         #Entry.insert(syote2, virhe)
 
 #ohjelman lopetus
-def lopeta():
+def quit_program():
     GUI.destroy()
     return
 
@@ -147,7 +148,7 @@ frame=Frame(GUI)
 frame.pack()
 
 frame1 = Frame(GUI)
-frame1.pack( side=TOP)
+frame1.pack(side=TOP)
 
 frame2=Frame(GUI)
 frame2.pack()
@@ -159,7 +160,7 @@ frame4=Frame(GUI)
 frame4.pack()
 
 #tehdään napit komennoille ja lopetukselle
-execute=Button(frame3, text="execute", command=execute_prints)
+execute=Button(frame3, text="execute", command=execute_prints("anything"))
 execute.pack(side=RIGHT)
 
 miinusnappi=Button(frame3, text="help", command=help_button_cmd)
@@ -169,17 +170,20 @@ kertonappi=Button(frame3, text="inventory", command=inv_button_cmd)
 kertonappi.pack(side=RIGHT)
 
 
-lopetusnappi=Button(frame4, text="Quit", command=lopeta)
+lopetusnappi=Button(frame4, text="Quit", command=quit_program)
 lopetusnappi.pack(side=BOTTOM)
 
+#Kuva
+back_image = PhotoImage(file="mansionBG_vaalea.gif", height = 300, width=800)
+
 #tulostetaan syotteet
-syote2=Label(frame1, height=10, text=oma_funktiot.location("guestroom"))
+syote2=Label(frame1, justify= LEFT, compound= CENTER, padx=10, text=oma_funktiot.location("guestroom"), image=back_image, fg="white", font=("Courier", 9))
 syote2.pack(side=TOP)
 
-Printframe=Scrollbar(frame2)
-Printframe.pack(side=TOP, fill=Y)
+Printframe=Scrollbar(frame4)
+Printframe.pack(side=RIGHT, fill=Y)
 
-Infotext = Text(frame2, height=10, width=130)
+Infotext = Text(frame2, height=10, width=100, bg="black", fg="white")
 Infotext.pack(side=TOP, fill=Y)
 
 Printframe.config(command=Infotext.yview)
