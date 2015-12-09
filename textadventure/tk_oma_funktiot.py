@@ -8,38 +8,14 @@ import mysql.connector
 def open_database(hostname, uname, pswd):
     return mysql.connector.connect(
         host=hostname, user=uname, passwd=pswd, db="MM", buffered=True
-    )
-#moves Sql:ssa
-known_moves=['go', 'move', 'exit', 'walk', 'travel', 'climb', 'crawl', 'run']
-#known looks sql:Ssa
-known_looks=['look', 'inspect', 'examine', 'search', 'investigate']
-#known takes sql:ssa
-known_takes=['take', 'lift', 'pick', 'get', 'grab']
-#talks sql:ssa
-known_talks=['talk', 'ask', 'interrogate', 'interview', 'speak', 'tell']
-known_opens=['open', 'close']
-known_helps=['inventory', 'help', 'map', 'info']
-known_commands= []
-known_commands.extend(known_moves)
-known_commands.extend(known_talks)
-known_commands.extend(known_takes)
-known_commands.extend(known_helps)
-known_commands.extend(known_opens)
-known_commands.extend(known_looks)
+   )
 
-known_rooms=['guestroom', 'garage', 'corridor', 'maidroom', 'office', 'kitchen', 'stairs', 'ballroom',
-                'bathroom', 'bedroom', 'study', 'attic']
-#people sql:s
-known_people =['butler', 'willy', 'maid', 'chef', 'lady']
-known_objects =['table', 'cabinet', 'book', 'spellbook', 'corpse', 'lord', 'chadwick']
-known_items =['whiskey']
-
-#help function
 def help():
-    ret = ("For moving around there are following commands:", known_moves,"\n"
-            "If you want ton pick up an object you can:", known_takes, "\n"
-            "For character interaction:", known_talks, "\n"
-            "To examine things you have:", known_looks)
+
+    ret = str("\nFor moving around there are following commands:\n") + str("'go', 'move', 'exit', 'walk', 'travel', 'climb', 'crawl', 'run'")
+    ret = ret + str("\nIf you want to pick up an object you can:\n") + str("'look', 'inspect', 'examine', 'search', 'investigate'")
+    ret = ret + str("\nFor character interaction:\n") + str("'take', 'lift', 'pick', 'get', 'grab'")
+    ret = ret + str("\nTo examine things you have:\n") + str("'talk', 'ask', 'interrogate', 'interview', 'speak', 'tell'") + str("\n")
     return ret
 #where you are
 def room_desc(db):
@@ -50,13 +26,10 @@ def room_desc(db):
     return (cursor.fetchone())[0]
 
 def move(db, noun):
-    roomID = known_rooms.index(noun)
-    roomID = roomID +1
     cursor=db.cursor()
-
-    sql = "update player set location = " + str(roomID)
-
+    sql = "update player set location = (select roomid from room where description = '" + noun + "')"
     cursor.execute(sql)
+    return
 
 
 def people(db):
@@ -78,7 +51,7 @@ def conversation(db, suspect):
     cursor=db.cursor()
 
     #Tarkistaa nimen synonyymit ja vaihtaa oikean nimen
-    send = "select npc.npcid, npc.trust from SynoPerson, npc, player where synoperson.Synonyymi = '" + suspect + "' and player.location and Synoperson.personID = npc.npcid and npc.location in (select location from player)"
+    send = "select npc.npcid, npc.trust from synoPerson, npc, player where synoperson.synonyymi = '" + suspect + "' and player.location and synoperson.personid = npc.npcid and npc.location in (select location from player)"
     cursor.execute(send)
     person = cursor.fetchone()
     if person is None:
@@ -194,7 +167,7 @@ def location(room):
                    "There is however, a surprisingly large amount of shaving scum splattered around the sink.\n"
                    "Well, maybe somebody was busy with something more important than cleaning last night.\n\n"
                    "There are doors leading to the ballroom and the study.\n")
-    if room == 'master bedroom':
+    if room == 'bedroom':
         return str("\nYou are in the Mansion's Master bedroom.\n"
                    "The late Lord's corpse is still lying on the bed. Hair white, eyes wide open, and arms \nstiffly grasping the air. "
                    "What could've caused a man such and eerie ending?\n"
@@ -231,10 +204,10 @@ def check_command (db, cmd):
 #look-funktio tilpehööreineen
 #item kuvauksia:
 pagedesc = str("\nThe page is from a book written in a strange language unknown to you.\n"
-                       "There is a crude illustration of what looks like a maelstrom spinning above a crowd of robe-clad men.\n")
+                       "There is a crude illustration of what looks like a maelstrom spinning \nabove a crowd of robe-clad men.\n")
 whiskdesc = str("\nYou look at the bottle, \"Glenlivet 12yo\", nice. This is truly a great whiskey.\n")
-bookdesc = str("\nThe book, written in a strange language unknown to you, seems to have been mostly open at a same certain section.\n"
-                   "The words 'NULLI INCANTA DEMONUM' in big letters at the end of this section strike your attention.\n")
+bookdesc = str("\nThe book, written in a strange language unknown to you, seems to have been \nmostly open at a same certain section. "
+                   "The words 'NULLI INCANTA DEMONUM' \nin big letters at the end of this section strike your attention.\n")
 #itse funktio
 def look(db, object):
     cursor=db.cursor()
@@ -298,7 +271,7 @@ def look(db, object):
 
 #inventaariossa olevien tavaroiden tutkimiseen:
     elif room is not None and object in ('page', 'paper'):
-        cursor.execute("select itemID from item where location=13")
+        cursor.execute("select itemid from item where location=13")
         item = cursor.fetchall()
         if (2,) in item:
             return pagedesc
@@ -306,7 +279,7 @@ def look(db, object):
             return str("\nYou notice no such thing.")
 
     elif room is not None and object == 'whiskey':
-        cursor.execute("select itemID from item where location=13")
+        cursor.execute("select itemid from item where location=13")
         item = cursor.fetchall()
         if (1,) in item:
             return whiskdesc
@@ -314,7 +287,7 @@ def look(db, object):
             return str("\nYou notice no such thing.")
 
     elif room is not None and object == 'book':
-        cursor.execute("select itemID from item where location=13")
+        cursor.execute("select itemid from item where location=13")
         item = cursor.fetchall()
         if (5,) in item:
             cursor.execute("update plot set state2=1")
@@ -331,7 +304,7 @@ def look(db, object):
 #syotteen takaisin. huoneiden osalta palauttaa vain sanan "room".
 def check_noun (db, noun):
     cursor = db.cursor()
-    send = "select nimi from Synocmd where Synonyymi = '" + noun + "'"
+    send = "select nimi from synocmd where synonyymi = '" + noun + "'"
     cursor.execute(send)
     results = cursor.fetchone()
     if results is not None:
@@ -352,12 +325,12 @@ def take(db, object):
 
         if playerroom == 6 and itemroom == 6 and object == 'whiskey':
             cursor.execute("update item set location = 13 where itemid = 1")
-            return str("\nYou pick up the bottle of whiskey and think, \"That will loosen up my suspects a bit..\"")
+            return str("\nYou pick up the bottle of whiskey and think, \"That will loosen up my suspects a bit..\"\n")
 
         elif playerroom == 4 and itemroom == 4 and object == 'page':
             cursor.execute("update item set location = 13 where itemid = 2")
             cursor.execute("update plot set state3=1")
-            return str("\nYou pick up and unfold the torn page. \"I wonder what this is?\"")
+            return str("\nYou pick up and unfold the torn page. \"I wonder what this is?\"\n")
 
         elif playerroom == 12 and itemroom == 12 and object == 'book':
             cursor.execute("update item set location = 13 where itemid = 5")
@@ -396,11 +369,11 @@ def give(db, item):
             if playerroom == 2 and item == 'whiskey':
                 cursor.execute("update item set location = null where itemid = 1")
                 cursor.execute("update npc set trust = 2 where npcid = 1")
-                return str("\nYou gave Willy the bottle of whiskey. \n\"OH! Papa's here! My darling!\" *followed by unadhesive irish mumble*")
+                return str("\nYou gave Willy the bottle of whiskey. \n\"OH! Papa's here! My darling!\" *followed by unadhesive irish mumble*\n")
             else:
-                return str("\nThere's no one in this room who'd want that.")
+                return str("\nThere's no one in this room who'd want that.\n")
         else:
-            return str("\nYou have nothing to give.")
+            return str("\nYou have nothing to give.\n")
     else:
-        return str("\nYou have nothing to give.")
+        return str("\nYou have nothing to give.\n")
 #kukkuu

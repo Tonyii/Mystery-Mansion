@@ -194,7 +194,7 @@ def location(room):
                    "There is however, a surprisingly large amount of shaving scum splattered around the sink.\n"
                    "Well, maybe somebody was busy with something more important than cleaning last night.\n"
                    "There are doors leading to the ballroom and the study.\n")
-    if room == 'master bedroom':
+    if room == 'bedroom':
         return str("\nYou are in the Mansion's Master bedroom.\n"
                    "The late Lord's corpse is still lying on the bed. Hair white, eyes wide open, and arms stiffly grasping the air.\n"
                    "What could've caused a man such and eerie ending?\n"

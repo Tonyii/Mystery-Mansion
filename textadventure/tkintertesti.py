@@ -77,11 +77,11 @@ def player_input(command):
 
     except:
         IOError
-alku = 0
+starting = 0
 #pluslasku
 def execute_prints(anything_at_all):
     try:
-        global alku
+        global starting
         if alku == 0:
             return
         else:
@@ -204,7 +204,7 @@ syote1= execute_prints
 
 #vastaus=Entry(frame, width=10)
 #vastaus.pack(side=LEFT)
-alku = 1
+starting = 1
 
 
 GUI.mainloop()
