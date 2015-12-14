@@ -10,6 +10,7 @@ def open_database(hostname, uname, pswd):
         host=hostname, user=uname, passwd=pswd, db="MM", buffered=True
    )
 
+
 def help():
 
     ret = str("\nFor moving around there are following commands:\n") + str("'go', 'move', 'exit', 'walk', 'travel', 'climb', 'crawl', 'run'")
