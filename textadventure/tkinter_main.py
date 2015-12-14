@@ -195,7 +195,7 @@ back_image = PhotoImage(file="mansionBG_vaalea.gif")
 room_desc_widget=Label(frame1, width=800, bd=0, padx=0, pady=0, justify= LEFT, compound= CENTER, text=tk_oma_funktiot.location("guestroom"), image=back_image, fg="white", font=("Courier", 9))
 room_desc_widget.pack(side=TOP)
 
-scroller_widget=Scrollbar(frame4, bg="black")
+scroller_widget=Scrollbar(frame2, bg="black")
 scroller_widget.pack(side=RIGHT, fill=Y)
 
 Infotext = Text(frame2, height=10, width=100, bg="black", fg="white", padx=0, pady=0)
