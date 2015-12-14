@@ -51,6 +51,12 @@ def people(db):
 def conversation(db, suspect):
     cursor=db.cursor()
 
+    #jos pelaajalla kaikki vihjeet vaihdetaan maidille uusi trust
+    cursor.execute("select * from plot")
+    plotnow = cursor.fetchone()
+    if plotnow == (1, 1, 1, 0, 0):
+        cursor.execute("update npc set trust=2 where npcID=2")
+
     #Tarkistaa nimen synonyymit ja vaihtaa oikean nimen
     send = "select npc.npcid, npc.trust from synoPerson, npc, player where synoperson.synonyymi = '" + suspect + "' and player.location and synoperson.personid = npc.npcid and npc.location in (select location from player)"
     cursor.execute(send)
@@ -105,7 +111,11 @@ def conversation(db, suspect):
 
         if personid == 2:
             answer = str("As you try to confront Penelope she gives you an evil glance,\n"
-                         "mumbles something under her breath, and vanishes suddenly in a puff of smoke!\n")
+                         "mumbles something under her breath, and vanishes suddenly in a puff of smoke!\n\n"
+                         "################################################################################"
+                         "\nGONGRATULATIONS! YOU HAVE SOLVED THE MURDER AND FINISHED THE GAME IN GRAPHICAL INTERFACE."
+                         "TO SEE THE 'BOSSFIGHT', PLEASE USE THE TEXT VERSION!\n"
+                         "################################################################################\n\n\n\n")
             cursor.execute("update plot set state4=1")
             return answer
 

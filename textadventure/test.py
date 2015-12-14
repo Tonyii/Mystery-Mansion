@@ -1,5 +1,12 @@
 import time
 import sys
+import tk_oma_funktiot
+
+plotnow = tk_oma_funktiot.inventory(db)
+countnow = len(plotnow)
+print(countnow)
+ #   if int(countnow) >= 3:
+  #      input('YESS')
 
 def Kuvaus(db):
     try:

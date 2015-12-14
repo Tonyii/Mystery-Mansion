@@ -16,6 +16,7 @@ uname = 'player'
 pswd = 'mm'
 db = tk_oma_funktiot.open_database(hostname, uname, pswd)
 
+
 story = ("It was a dark and stormy night when Lord Chadwick hosted his party.\nYou remember that a falling tree cut off the electricity.\n"
       "Phones were dead and you were the only one without a chauffeur, so you stayed the night.\n"
       "After waking up to a slight hangover and terrible headache, you hear screaming from upstairs. \n"
@@ -46,6 +47,8 @@ def player_input(command):
         #ignore hurr all capital letters in commands
         verb = verb.lower()
         noun = noun.lower()
+
+
 
         #if verb not in oma_funktiot.known_commands:
             #print("You try to", command, "without significant result.")
